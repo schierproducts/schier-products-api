@@ -1,0 +1,14 @@
+{
+    "name": "schierproducts/schier-product-api",
+    "description": "A PHP wrapper to access and interact with the Schier Products product API.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Doug Niccum",
+            "email": "doug.niccum@schierproducts.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
