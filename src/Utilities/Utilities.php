@@ -53,4 +53,63 @@ class Utilities
 
         return $value;
     }
+
+    /**
+     * Whether the provided array (or other) is a list rather than a dictionary.
+     * A list is defined as an array for which all the keys are consecutive
+     * integers starting at 0. Empty arrays are considered to be lists.
+     *
+     * @param array|mixed $array
+     *
+     * @return bool true if the given object is a list
+     */
+    public static function isList($array)
+    {
+        if (!\is_array($array)) {
+            return false;
+        }
+        if ([] === $array) {
+            return true;
+        }
+//        if (array_key_exists('data', $array)) {
+//            dd(\array_keys($array['data']), \range(0, \count($array) - 1));
+//        }
+        if (\array_keys($array) !== \range(0, \count($array) - 1)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Converts a response from the Schier Product API to the corresponding PHP object.
+     *
+     * @param array $resp the response from the Schier Product API
+     * @param array|\SchierProducts\SchierProductApi\Utilities\RequestOptions $opts
+     *
+     * @return array|\SchierProducts\SchierProductApi\Resources\InventoryItem|\SchierProducts\SchierProductApi\Collection
+     */
+    public static function convertToInventoryItem($resp, $opts)
+    {
+        $types = \SchierProducts\SchierProductApi\Utilities\Types::CLASS_MAP;
+        if (self::isList($resp)) {
+            $mapped = [];
+            foreach ($resp as $i) {
+                $mapped[] = self::convertToInventoryItem($i, $opts);
+            }
+
+            return $mapped;
+        }
+        if (\is_array($resp)) {
+            if (isset($resp['object']) && \is_string($resp['object']) && isset($types[$resp['object']])) {
+                $class = $types[$resp['object']];
+            } else {
+                $class = \SchierProducts\SchierProductApi\Resources\InventoryItem::class;
+            }
+
+            return $class::constructFrom($resp, $opts);
+        }
+
+        return $resp;
+    }
 }

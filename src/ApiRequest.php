@@ -4,7 +4,7 @@
 namespace SchierProducts\SchierProductApi;
 
 
-use SchierProducts\SchierProductApi\Client;
+use SchierProducts\SchierProductApi\HttpClient;
 
 class ApiRequest
 {
@@ -19,7 +19,7 @@ class ApiRequest
     private $_apiBase;
 
     /**
-     * @var Client\RequestClient
+     * @var HttpClient\RequestClient
      */
     private static $_httpClient;
 
@@ -93,8 +93,6 @@ class ApiRequest
             $defaultHeaders['Product-Api-Version'] = SchierProductApi::$apiVersion;
         }
 
-        $defaultHeaders['Content-Type'] = 'application/json';
-
         $combinedHeaders = \array_merge($defaultHeaders, $headers);
         $rawHeaders = [];
 
@@ -105,8 +103,8 @@ class ApiRequest
         list($rbody, $rcode, $rheaders) = $this->httpClient()->request(
             $method,
             $absUrl,
+            $params,
             $rawHeaders,
-            $params
         );
 
         return [$rbody, $rcode, $rheaders, $currentApiKey];
@@ -151,16 +149,14 @@ class ApiRequest
      */
     public function handleErrorResponse($rbody, $rcode, $rheaders, $resp)
     {
-        if (!\is_array($resp) || !isset($resp['error'])) {
+        if (!\is_array($resp) || (!isset($resp['error']) && !isset($resp['message']))) {
             $msg = "Invalid response object from API: {$rbody} "
                 . "(HTTP response code was {$rcode})";
 
             throw new Exception\UnexpectedValueException($msg);
         }
 
-        $errorData = $resp['error'];
-
-        throw self::_specificAPIError($rbody, $rcode, $rheaders, $resp, $errorData);
+        throw self::_specificAPIError($rbody, $rcode, $rheaders, $resp, $resp);
     }
 
     /**
@@ -188,24 +184,35 @@ class ApiRequest
      */
     private static function _specificAPIError($rbody, $rcode, $rheaders, $resp, $errorData)
     {
-        $msg = isset($errorData['message']) ? $errorData['message'] : null;
+        if (isset($errorData['message'])) {
+            $message = $errorData['message'];
+        } elseif (isset($errorData['error'])) {
+            $message = $errorData['error'];
+        } else {
+            // fallback
+            $message = "An error has occurred";
+        }
 
         switch ($rcode) {
             // no break
             case 404:
-                return Exception\InvalidRequestException::factory($msg, $rcode, $rbody, $resp, $rheaders);
+                return Exception\InvalidRequestException::factory($message, $rcode, $rbody, $resp, $rheaders);
 
             case 401:
-                return Exception\AuthenticationException::factory($msg, $rcode, $rbody, $resp, $rheaders);
+                if (str_contains($message, 'Unauthenticated')) {
+                    $message = 'It appears that your API key is not correct.';
+                }
+
+                return Exception\AuthenticationException::factory($message, $rcode, $rbody, $resp, $rheaders);
 
             case 403:
-                return Exception\PermissionException::factory($msg, $rcode, $rbody, $resp, $rheaders);
+                return Exception\PermissionException::factory($message, $rcode, $rbody, $resp, $rheaders);
 
             case 429:
-                return Exception\RateLimitException::factory($msg, $rcode, $rbody, $resp, $rheaders);
+                return Exception\RateLimitException::factory($message, $rcode, $rbody, $resp, $rheaders);
 
             default:
-                return Exception\UnknownApiErrorException::factory($msg, $rcode, $rbody, $resp, $rheaders);
+                return Exception\UnknownApiErrorException::factory($message, $rcode, $rbody, $resp, $rheaders);
         }
     }
 
@@ -230,26 +237,25 @@ class ApiRequest
         }
 
         return [
-            'Content-Type' => 'application/json',
             'X-Schier-Client-User-Agent' => \json_encode($ua),
             'Authorization' => 'Bearer ' . $apiKey,
         ];
     }
 
     /**
-     * @return Client\RequestClient
+     * @return HttpClient\RequestClient
      */
     private function httpClient()
     {
         if (!self::$_httpClient) {
-            self::$_httpClient = Client\RequestClient::instance();
+            self::$_httpClient = HttpClient\RequestClient::instance();
         }
 
         return self::$_httpClient;
     }
 
     /**
-     * @param Client\RequestClient|\Illuminate\Http\Client\Factory $httpClient
+     * @param HttpClient\RequestClient|\Illuminate\Http\Client\Factory $httpClient
      */
     public function setHttpClient($httpClient): void
     {

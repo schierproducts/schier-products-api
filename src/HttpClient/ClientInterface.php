@@ -1,7 +1,7 @@
 <?php
 
 
-namespace SchierProducts\SchierProductApi\Client;
+namespace SchierProducts\SchierProductApi\HttpClient;
 
 
 interface ClientInterface

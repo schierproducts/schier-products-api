@@ -4,6 +4,8 @@
 namespace SchierProducts\SchierProductApi\Tests;
 
 
+use SchierProducts\SchierProductApi\ProductType;
+use SchierProducts\SchierProductApi\SchierProductApi;
 use SchierProducts\SchierProductApi\Utilities\Utilities;
 
 class UtilitiesTest extends \PHPUnit\Framework\TestCase
@@ -33,5 +35,19 @@ class UtilitiesTest extends \PHPUnit\Framework\TestCase
         $encodedString = Utilities::utf8($string);
 
         $this->assertEquals($string, $encodedString);
+    }
+
+    /**
+     * @test
+     * @covers \SchierProducts\SchierProductApi\Utilities\Utilities::convertToInventoryItem
+     */
+    public function converts_value_to_new_inventory_item()
+    {
+        SchierProductApi::setApiKey(getenv("API_KEY"));
+        SchierProductApi::setApiBase("http://product-api.test");
+        $response = ProductType::all();
+        $this->assertEquals('list', $response->object);
+        $this->assertEquals('/product-types', $response->url);
+        $this->assertNotCount(0, $response->allItems());
     }
 }

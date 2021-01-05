@@ -3,7 +3,7 @@
 
 namespace SchierProducts\SchierProductApi\Tests;
 
-use \SchierProducts\SchierProductApi\Client;
+use \SchierProducts\SchierProductApi\HttpClient;
 use \SchierProducts\SchierProductApi\Exception;
 use SchierProducts\SchierProductApi\SchierProductApi;
 
@@ -15,13 +15,13 @@ class ApiRequestTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @test
-     * @covers Client\RequestClient::request
+     * @covers HttpClient\RequestClient::request
      * @throws \Exception
      */
     public function request_gets_unexpected_value_exception()
     {
         $url = $this->faker->url;
-        $instance = Client\RequestClient::instance();
+        $instance = HttpClient\RequestClient::instance();
         $method = "what";
 
         $this->expectException(Exception\UnexpectedValueException::class);
@@ -42,49 +42,12 @@ class ApiRequestTest extends \PHPUnit\Framework\TestCase
         $this->assertIsArray($headers);
         $this->assertArrayHasKey('X-Schier-Client-User-Agent', $headers);
         $this->assertArrayHasKey('Authorization', $headers);
-        $this->assertArrayHasKey('Content-Type', $headers);
         $this->assertJson($headers['X-Schier-Client-User-Agent']);
         $agent = json_decode($headers['X-Schier-Client-User-Agent']);
         $this->assertEquals('php', $agent->lang);
         $this->assertEquals(\PHP_VERSION, $agent->lang_version);
         $this->assertEquals('schier', $agent->publisher);
         $this->assertEquals($headers['Authorization'], 'Bearer ' . $sampleKey);
-        $this->assertEquals($headers['Content-Type'], 'application/json');
-    }
-
-    /**
-     * @test
-     * @covers \SchierProducts\SchierProductApi\ApiRequest::_requestRaw
-     */
-    public function request_gets_authentication_exception()
-    {
-        $factory = new \Illuminate\Http\Client\Factory();
-        $factory->fake();
-
-        $this->expectException(Exception\AuthenticationException::class);
-
-        $request = new \SchierProducts\SchierProductApi\ApiRequest();
-        $request->request('get', '/products');
-    }
-
-    /**
-     * @test
-     * @covers \SchierProducts\SchierProductApi\ApiRequest::_requestRaw
-     */
-    public function request_gets_authentication_exception_with_status_and_message()
-    {
-        $factory = new \Illuminate\Http\Client\Factory();
-        $factory->fake();
-
-        $request = new \SchierProducts\SchierProductApi\ApiRequest();
-        try {
-            $request->request('get', '/products');
-        } catch (Exception\AuthenticationException $exception) {
-            $message = $exception->getMessage();
-
-            $this->assertEquals(403, $exception->httpStatus);
-            $this->assertStringContainsString("SchierProductApi::setApiKey(<API-KEY>)", $message);
-        }
     }
 
     /**
