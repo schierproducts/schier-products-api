@@ -23,7 +23,6 @@ class ProductType extends ApiResource
 
     use Operations\All;
     use Operations\Retrieve;
-//    use Operations\NestedResource;
 
     public function instanceUrl()
     {
