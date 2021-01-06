@@ -168,12 +168,16 @@ class InventoryItem
      */
     public function updateAttributes($values, $opts = null)
     {
+        $nestedValues = [
+            'product-image-library',
+            'product-image',
+            'dimension-set',
+            'dimensions',
+            'measurement',
+        ];
+
         foreach ($values as $k => $v) {
-            // Special-case metadata to always be cast as a InventoryItem
-            // This is necessary in case metadata is empty, as PHP arrays do
-            // not differentiate between lists and hashes, and we consider
-            // empty arrays to be lists.
-            if (('metadata' === $k) && (\is_array($v))) {
+            if (in_array($k, $nestedValues) && (\is_array($v))) {
                 $this->_values[$k] = InventoryItem::constructFrom($v, $opts);
             } else {
                 $this->_values[$k] = \SchierProducts\SchierProductApi\Utilities\Utilities::convertToInventoryItem($v, $opts);

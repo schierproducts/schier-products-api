@@ -36,6 +36,10 @@ class SchierProductApi
     }
 
     /**
+     * Manually defines the HTTP client used to make requests.
+     *
+     * This is used for testing purposes.
+     *
      * @param \Illuminate\Http\Client\Factory|mixed $httpClient
      */
     public static function setHttpClient($httpClient): void

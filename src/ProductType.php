@@ -15,6 +15,7 @@ use SchierProducts\SchierProductApi\Utilities\Utilities;
  * @property boolean $active - If the product type is currently being used
  * @property string $image - The image that is used to represent this product type
  * @property ProductType|null $parent - If the product type is a child association
+ * @property Collection|null $products - A list of products that are associated with that product type
  * @property string $created - A timestamp of when the resource was created
  */
 class ProductType extends ApiResource

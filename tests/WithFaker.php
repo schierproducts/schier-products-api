@@ -13,6 +13,8 @@ trait WithFaker
 
     /**
      * This method is called before each test.
+     *
+     * @doesNotPerformAssertions
      */
     protected function setUp() : void
     {
