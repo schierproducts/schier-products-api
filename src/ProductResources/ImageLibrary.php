@@ -4,15 +4,15 @@
 namespace SchierProducts\SchierProductApi\ProductResources;
 
 /**
- * Class ProductImage
+ * Class ImageLibrary
  * @package SchierProducts\SchierProductApi
  * @property string $orig
  * @property string $lg
  * @property string $md
  * @property string $sm
  */
-class ProductImage extends ProductResource
+class ImageLibrary extends ProductResource
 {
-    const OBJECT_NAME = 'product-image';
+    const OBJECT_NAME = 'image-library';
 
 }

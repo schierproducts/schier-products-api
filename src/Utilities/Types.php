@@ -26,7 +26,7 @@ class Types
         \SchierProducts\SchierProductApi\ProductResources\InstallationOptionsLocation::OBJECT_NAME => \SchierProducts\SchierProductApi\ProductResources\InstallationOptionsLocation::class,
         \SchierProducts\SchierProductApi\ProductResources\Measurement::OBJECT_NAME => \SchierProducts\SchierProductApi\ProductResources\Measurement::class,
         \SchierProducts\SchierProductApi\ProductResources\Price::OBJECT_NAME => \SchierProducts\SchierProductApi\ProductResources\Price::class,
-        \SchierProducts\SchierProductApi\ProductResources\ProductImage::OBJECT_NAME => \SchierProducts\SchierProductApi\ProductResources\ProductImage::class,
+        \SchierProducts\SchierProductApi\ProductResources\ImageLibrary::OBJECT_NAME => \SchierProducts\SchierProductApi\ProductResources\ImageLibrary::class,
         \SchierProducts\SchierProductApi\ProductResources\ProductImageLibrary::OBJECT_NAME => \SchierProducts\SchierProductApi\ProductResources\ProductImageLibrary::class,
         \SchierProducts\SchierProductApi\ProductResources\ProductOption::OBJECT_NAME => \SchierProducts\SchierProductApi\ProductResources\ProductOption::class,
         \SchierProducts\SchierProductApi\ProductResources\ProductPrice::OBJECT_NAME => \SchierProducts\SchierProductApi\ProductResources\ProductPrice::class,

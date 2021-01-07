@@ -6,8 +6,8 @@ namespace SchierProducts\SchierProductApi\ProductResources;
 /**
  * Class ProductImageLibrary
  * @package SchierProducts\SchierProductApi
- * @property ProductImage $primary
- * @property ProductImage $dimension
+ * @property ImageLibrary $primary
+ * @property ImageLibrary $dimension
  */
 class ProductImageLibrary extends ProductResource
 {
