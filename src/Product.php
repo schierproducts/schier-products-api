@@ -9,6 +9,7 @@ use SchierProducts\SchierProductApi\ProductResources\Certification;
 use SchierProducts\SchierProductApi\ProductResources\DimensionSet;
 use SchierProducts\SchierProductApi\ProductResources\DocumentLibrary;
 use SchierProducts\SchierProductApi\ProductResources\FlowRating;
+use SchierProducts\SchierProductApi\ProductResources\InstallationOptions;
 use SchierProducts\SchierProductApi\ProductResources\ProductImageLibrary;
 
 /**
@@ -28,10 +29,13 @@ use SchierProducts\SchierProductApi\ProductResources\ProductImageLibrary;
  * @property string|null $revit Link to the Revit (.ra) file; usually compressed into a ZIP file
  * @property string|null $owners_manual Link to the Owners Manual document
  * @property string|null $csi_masterspec Link to the CSI Masterspec document
+ * @property InstallationOptions $installation_options Where/how this product can be installed correctly
  * @property FlowRating[] $ratings Additional flow and grease capacity ratings
- * @property Collection<SimpleProduct> $related_products Related products with like options, sizes, etc
- * @property Collection<SimpleProduct> $accessories Compatible accessories for this product
- * @property Collection<SimpleProduct> $options Available customization options
+ * @property DimensionSet|null $solids_capacity If available, solids capacity
+ * @property DimensionSet|null $liquid_capacity If available, liquid capacity of the interceptor
+ * @property Collection<SimpleProduct>|null $related_products Related products with like options, sizes, etc
+ * @property Collection<SimpleProduct>|null $accessories Compatible accessories for this product
+ * @property Collection<SimpleProduct>|null $options Available customization options
  */
 class Product extends SimpleProduct
 {

@@ -22,6 +22,8 @@ class Types
         \SchierProducts\SchierProductApi\ProductResources\DocumentLibrary::OBJECT_NAME => \SchierProducts\SchierProductApi\ProductResources\DocumentLibrary::class,
         \SchierProducts\SchierProductApi\ProductResources\FlowRating::OBJECT_NAME => \SchierProducts\SchierProductApi\ProductResources\FlowRating::class,
         \SchierProducts\SchierProductApi\ProductResources\GreaseCapacityMeasurement::OBJECT_NAME => \SchierProducts\SchierProductApi\ProductResources\GreaseCapacityMeasurement::class,
+        \SchierProducts\SchierProductApi\ProductResources\InstallationOptions::OBJECT_NAME => \SchierProducts\SchierProductApi\ProductResources\InstallationOptions::class,
+        \SchierProducts\SchierProductApi\ProductResources\InstallationOptionsLocation::OBJECT_NAME => \SchierProducts\SchierProductApi\ProductResources\InstallationOptionsLocation::class,
         \SchierProducts\SchierProductApi\ProductResources\Measurement::OBJECT_NAME => \SchierProducts\SchierProductApi\ProductResources\Measurement::class,
         \SchierProducts\SchierProductApi\ProductResources\Price::OBJECT_NAME => \SchierProducts\SchierProductApi\ProductResources\Price::class,
         \SchierProducts\SchierProductApi\ProductResources\ProductImage::OBJECT_NAME => \SchierProducts\SchierProductApi\ProductResources\ProductImage::class,
