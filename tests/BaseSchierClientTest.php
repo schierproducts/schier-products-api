@@ -62,7 +62,7 @@ class BaseSchierClientTest extends \PHPUnit\Framework\TestCase
      */
     public function api_key_is_set_correctly()
     {
-        $client = new \SchierProducts\SchierProductApi\Client\BaseSchierClient(getenv("API_KEY"));
+        $client = new \SchierProducts\SchierProductApi\Client\BaseSchierClient(getenv("API_KEY") ? getenv("API_KEY") : 'SAMPLE_KEY');
 
         $this->assertNotNull($client->getApiKey());
     }

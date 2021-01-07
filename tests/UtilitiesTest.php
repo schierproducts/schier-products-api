@@ -4,6 +4,7 @@
 namespace SchierProducts\SchierProductApi\Tests;
 
 
+use SchierProducts\SchierProductApi\ProductApiClient;
 use SchierProducts\SchierProductApi\ProductType;
 use SchierProducts\SchierProductApi\SchierProductApi;
 use SchierProducts\SchierProductApi\Utilities\Utilities;
@@ -11,6 +12,7 @@ use SchierProducts\SchierProductApi\Utilities\Utilities;
 class UtilitiesTest extends \PHPUnit\Framework\TestCase
 {
     use WithFaker;
+    use WithProductTypeResponse;
 
     /**
      * @test
@@ -43,9 +45,16 @@ class UtilitiesTest extends \PHPUnit\Framework\TestCase
      */
     public function converts_value_to_new_inventory_item()
     {
-        SchierProductApi::setApiKey(getenv("API_KEY"));
-        SchierProductApi::setApiBase("http://product-api.test");
-        $response = ProductType::all();
+        $client = new ProductApiClient([
+            'api_key' => "Sample_Key",
+            'api_base' => "http://product-api.test"
+        ]);
+
+        $factory = self::factory();
+        SchierProductApi::setHttpClient($factory);
+
+        $response = $client->productTypes->all();
+
         $this->assertEquals('list', $response->object);
         $this->assertEquals('/product-types', $response->url);
         $this->assertNotCount(0, $response->allItems());

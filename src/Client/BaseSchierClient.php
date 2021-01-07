@@ -39,7 +39,9 @@ class BaseSchierClient implements \SchierProducts\SchierProductApi\Client\Schier
 
         $this->config = $config;
 
-        SchierProductApi::setApiKey($this->config['api_key']);
+        if ($this->config['api_key']) {
+            SchierProductApi::setApiKey($this->config['api_key']);
+        }
         SchierProductApi::setApiBase($this->config['api_base']);
 
         $this->defaultOpts = Utilities\RequestOptions::parse([
