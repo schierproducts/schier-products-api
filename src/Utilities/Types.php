@@ -11,6 +11,7 @@ class Types
      */
     const CLASS_MAP = [
         \SchierProducts\SchierProductApi\Collection::OBJECT_NAME => \SchierProducts\SchierProductApi\Collection::class,
+        \SchierProducts\SchierProductApi\ItemCollection::OBJECT_NAME => \SchierProducts\SchierProductApi\ItemCollection::class,
         \SchierProducts\SchierProductApi\Product::OBJECT_NAME => \SchierProducts\SchierProductApi\Product::class,
         \SchierProducts\SchierProductApi\ProductType::OBJECT_NAME => \SchierProducts\SchierProductApi\ProductType::class,
         \SchierProducts\SchierProductApi\SimpleProduct::OBJECT_NAME => \SchierProducts\SchierProductApi\SimpleProduct::class,

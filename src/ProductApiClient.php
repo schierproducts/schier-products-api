@@ -10,6 +10,7 @@ namespace SchierProducts\SchierProductApi;
  * @package SchierProducts\SchierProductApi
  * @property \SchierProducts\SchierProductApi\Service\ProductTypeService $productTypes
  * @property \SchierProducts\SchierProductApi\Service\ProductService $products
+ * @property \SchierProducts\SchierProductApi\Service\ItemCollectionService $collections
  */
 class ProductApiClient extends Client\BaseSchierClient
 {

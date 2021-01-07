@@ -9,6 +9,7 @@ namespace SchierProducts\SchierProductApi\Service;
  * @package SchierProducts\SchierProductApi\Service
  * @property ProductService $products
  * @property ProductTypeService $productTypes
+ * @property ItemCollectionService $collections
  */
 class ServiceFactory extends AbstractServiceFactory
 {
@@ -18,6 +19,7 @@ class ServiceFactory extends AbstractServiceFactory
     private static $classMap = [
         'products' => ProductService::class,
         'productTypes' => ProductTypeService::class,
+        'collections' => ItemCollectionService::class,
     ];
 
     protected function getServiceClass($name)
