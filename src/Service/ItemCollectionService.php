@@ -34,7 +34,7 @@ class ItemCollectionService extends \SchierProducts\SchierProductApi\Service\Api
      * @param null|array $params
      * @param null|array|\SchierProducts\SchierProductApi\Utilities\RequestOptions $opts
      * @throws Exception\ApiErrorException if the request fails
-     * @return \SchierProducts\SchierProductApi\Resources\InventoryItem|\SchierProducts\SchierProductApi\Product
+     * @return \SchierProducts\SchierProductApi\Resources\InventoryItem|\SchierProducts\SchierProductApi\ItemCollection
      */
     public function retrieve($key, $params = null, $opts = null)
     {
