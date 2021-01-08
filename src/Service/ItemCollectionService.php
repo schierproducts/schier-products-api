@@ -38,6 +38,6 @@ class ItemCollectionService extends \SchierProducts\SchierProductApi\Service\Api
      */
     public function retrieve($key, $params = null, $opts = null)
     {
-        return $this->request('get', $this->buildPath('/colletions/%s', $key), $params, $opts);
+        return $this->request('get', $this->buildPath('/collections/%s', $key), $params, $opts);
     }
 }
