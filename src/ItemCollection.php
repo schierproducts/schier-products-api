@@ -12,6 +12,7 @@ use SchierProducts\SchierProductApi\ProductResources\ImageLibrary;
  * @package SchierProducts\SchierProductApi
  * @property string $name
  * @property string $key
+ * @property int $size
  * @property ImageLibrary $image
  * @property Collection<Product>|null $items
  */
