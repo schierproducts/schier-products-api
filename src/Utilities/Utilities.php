@@ -29,6 +29,71 @@ class Utilities
     }
 
     /**
+     * @param array $params
+     *
+     * @return string
+     */
+    public static function encodeParameters($params)
+    {
+        $flattenedParams = self::flattenParams($params);
+        $pieces = [];
+        foreach ($flattenedParams as $param) {
+            list($k, $v) = $param;
+            $pieces[] = self::urlEncode($k) . '=' . self::urlEncode($v);
+        }
+
+        return \implode('&', $pieces);
+    }
+
+    /**
+     * @param array $params
+     * @param null|string $parentKey
+     *
+     * @return array
+     */
+    public static function flattenParams($params, $parentKey = null)
+    {
+        $result = [];
+
+        foreach ($params as $key => $value) {
+            $calculatedKey = $parentKey ? "{$parentKey}[{$key}]" : $key;
+
+            if (self::isList($value)) {
+                $result = \array_merge($result, self::flattenParamsList($value, $calculatedKey));
+            } elseif (\is_array($value)) {
+                $result = \array_merge($result, self::flattenParams($value, $calculatedKey));
+            } else {
+                \array_push($result, [$calculatedKey, $value]);
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param array $value
+     * @param string $calculatedKey
+     *
+     * @return array
+     */
+    public static function flattenParamsList($value, $calculatedKey)
+    {
+        $result = [];
+
+        foreach ($value as $i => $elem) {
+            if (self::isList($elem)) {
+                $result = \array_merge($result, self::flattenParamsList($elem, $calculatedKey));
+            } elseif (\is_array($elem)) {
+                $result = \array_merge($result, self::flattenParams($elem, "{$calculatedKey}[{$i}]"));
+            } else {
+                \array_push($result, ["{$calculatedKey}[{$i}]", $elem]);
+            }
+        }
+
+        return $result;
+    }
+
+    /**
      * @param mixed|string $value a string to UTF8-encode
      *
      * @return mixed|string the UTF8-encoded string, or the object passed in if

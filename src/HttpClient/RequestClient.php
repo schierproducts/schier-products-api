@@ -73,7 +73,7 @@ class RequestClient implements ClientInterface
 
         if ('get' === $method || 'delete' === $method) {
             if (\count($params) > 0) {
-                $encoded = Utilities\Utilities::urlEncode($params);
+                $encoded = Utilities\Utilities::encodeParameters($params);
                 $absUrl = "{$absUrl}?{$encoded}";
             }
         } elseif ($method !== 'put' && $method !== 'post') {

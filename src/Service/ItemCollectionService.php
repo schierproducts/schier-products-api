@@ -13,7 +13,7 @@ use \SchierProducts\SchierProductApi\Exception;
 class ItemCollectionService extends \SchierProducts\SchierProductApi\Service\ApiService
 {
     /**
-     * Returns a list of all of the available, active products. The products are returned sorted by name.
+     * Returns a list of all of the available, active collections. The collections are returned sorted by name.
      *
      * @param null|array $params
      * @param null|array|\SchierProducts\SchierProductApi\Utilities\RequestOptions $opts

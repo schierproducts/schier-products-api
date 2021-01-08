@@ -5,6 +5,7 @@ namespace SchierProducts\SchierProductApi;
 
 
 use SchierProducts\SchierProductApi\HttpClient;
+use SchierProducts\SchierProductApi\Utilities\Utilities;
 
 class ApiRequest
 {
@@ -88,6 +89,7 @@ class ApiRequest
         }
 
         $absUrl = $this->_apiBase . $url;
+        $params = self::_encodeObjects($params);
         $defaultHeaders = $this->_defaultHeaders($currentApiKey);
         if (SchierProductApi::$apiVersion) {
             $defaultHeaders['Product-Api-Version'] = SchierProductApi::$apiVersion;
@@ -261,5 +263,35 @@ class ApiRequest
     {
         $this->httpClient()
             ->setFactory($httpClient);
+    }
+
+    /**
+     * @static
+     *
+     * @param ApiResource|array|bool|mixed $d
+     *
+     * @return ApiResource|array|mixed|string
+     */
+    private static function _encodeObjects($d)
+    {
+        if ($d instanceof ApiResource) {
+            return Utilities::utf8($d->id);
+        }
+        if (true === $d) {
+            return 'true';
+        }
+        if (false === $d) {
+            return 'false';
+        }
+        if (\is_array($d)) {
+            $res = [];
+            foreach ($d as $k => $v) {
+                $res[$k] = self::_encodeObjects($v);
+            }
+
+            return $res;
+        }
+
+        return Utilities::utf8($d);
     }
 }
