@@ -62,7 +62,7 @@ class LaravelTest extends TestCase
      */
     public function product_type_by_key_can_be_retrieved_via_facade()
     {
-        $formattedResponse = Utilities::convertToInventoryItem((array) json_decode($this->productTypeProductResponse()), []);
+        $formattedResponse = Utilities::convertToInventoryItem((array) json_decode($this->productTypeSingleResponse()), []);
 
         ProductApi::shouldReceive('productTypes')
             ->once()
