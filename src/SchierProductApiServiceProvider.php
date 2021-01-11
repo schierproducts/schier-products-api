@@ -15,7 +15,7 @@ class SchierProductApiServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $this->app->bind('schier-product-api', function() {
+        $this->app->bind('product-api', function() {
             return new ProductApiClient([
                 'api_key' => env('SCHIER_PRODUCT_API_KEY'),
                 'api_base' => env('SCHIER_PRODUCT_API_BASE', 'https://api.schierproducts.com'),
