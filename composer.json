@@ -7,7 +7,7 @@
         {
             "name": "Doug Niccum",
             "email": "doug.niccum@schierproducts.com",
-            "homepage": "http://dniccumdesign.com"
+            "homepage": "https://dniccumdesign.com"
         }
     ],
     "minimum-stability": "stable",
@@ -21,7 +21,18 @@
     },
     "require-dev": {
         "phpunit/phpunit": "^9.5",
-        "fzaninotto/faker": "^1.9"
+        "fakerphp/faker": "^1.13",
+        "orchestra/testbench": "^6.7"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "SchierProducts\\SchierProductApi\\SchierProductApiServiceProvider"
+            ],
+            "aliases": {
+                "SchierProductApi": "Products"
+            }
+        }
     },
     "autoload": {
         "psr-4": {

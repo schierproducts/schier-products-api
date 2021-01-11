@@ -65,6 +65,18 @@ class RequestOptions
     }
 
     /**
+     * @return array
+     */
+    public function toArray() : array
+    {
+        return [
+            'headers' => $this->headers,
+            'api_key' => $this->apiKey,
+            'api_base' => $this->apiBase,
+        ];
+    }
+
+    /**
      * Unpacks an options array into an RequestOptions object.
      *
      * @param null|array|RequestOptions|string $options a key => value array

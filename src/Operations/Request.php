@@ -3,6 +3,7 @@
 namespace SchierProducts\SchierProductApi\Operations;
 
 use SchierProducts\SchierProductApi\Exception;
+use SchierProducts\SchierProductApi\Utilities\RequestOptions;
 
 /**
  * Trait for resources that need to make API requests.
@@ -27,15 +28,16 @@ trait Request
      * @param string $method HTTP method ('get', 'post', etc.)
      * @param string $url URL for the request
      * @param array $params list of parameters for the request
+     * @param array|RequestOptions $opts
      * @param null|\Illuminate\Http\Client\Factory Allows us to manually override the request factory for mocking
      *
      * @throws Exception\ApiErrorException if the request fails
      *
      * @return string|array json response
      */
-    protected function _request($method, $url, $params = [], ?\Illuminate\Http\Client\Factory $factory = null)
+    protected function _request($method, $url, $params = [], $opts = [], ?\Illuminate\Http\Client\Factory $factory = null)
     {
-        list($resp) = static::_staticRequest($method, $url, $params, null, $factory);
+        list($resp) = static::_staticRequest($method, $url, $params, $opts, $factory);
         return $resp->json;
     }
 
@@ -43,14 +45,14 @@ trait Request
      * @param string $method HTTP method ('get', 'post', etc.)
      * @param string $url URL for the request
      * @param ?array $params list of parameters for the request
-     * @param null|array|string $options
+     * @param null|array|string|RequestOptions $options
      * @param null|\Illuminate\Http\Client\Factory Allows us to manually override the request factory for mocking
      *
      * @throws Exception\ApiErrorException if the request fails
      *
      * @return array tuple containing (the JSON response, $options)
      */
-    protected static function _staticRequest(string $method, string $url, ?array $params = [], ?array $options = null, ?\Illuminate\Http\Client\Factory $factory = null)
+    protected static function _staticRequest(string $method, string $url, ?array $params = [], $options = null, ?\Illuminate\Http\Client\Factory $factory = null)
     {
         $opts = \SchierProducts\SchierProductApi\Utilities\RequestOptions::parse($options);
         $baseUrl = isset($opts->apiBase) ? $opts->apiBase : static::baseUrl();

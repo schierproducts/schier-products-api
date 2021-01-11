@@ -64,7 +64,7 @@ class ProductType extends ApiResource
     public function products($params = null)
     {
         $url = $this->instanceUrl().'/products';
-        $response = $this->_request('get', $url, $params, SchierProductApi::getHttpClient());
+        $response = $this->_request('get', $url, $params, $this->_opts, SchierProductApi::getHttpClient());
         return Utilities::convertToInventoryItem($response, []);
     }
 }
