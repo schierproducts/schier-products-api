@@ -4,6 +4,8 @@
 
 # Schier Product Api PHP Wrapper
 
+For full documentation, see [the Schier API Documentation](https://api-docs.schierproducts.com/sdks/products/php.html).
+
 ## Installation
 
 To install this wrapper for the Schier Products Api, use the following BASH script to install this package via composer:
