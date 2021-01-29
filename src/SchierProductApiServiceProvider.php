@@ -5,22 +5,64 @@ namespace SchierProducts\SchierProductApi;
 
 
 use Illuminate\Support\ServiceProvider;
+use SchierProducts\SchierProductApi\Facades\ProductApi;
 
 class SchierProductApiServiceProvider extends ServiceProvider
 {
-    public function boot()
-    {
-        //
-    }
-
     public function register()
     {
+        $configPath = __DIR__ . '/../config/product-api.php';
+        $this->mergeConfigFrom($configPath, 'product-api');
+
         $this->app->bind('product-api', function() {
             return new ProductApiClient([
-                'api_key' => env('SCHIER_PRODUCT_API_KEY'),
-                'api_base' => env('SCHIER_PRODUCT_API_BASE', 'https://api.schierproducts.com'),
-                'api_version' => env('SCHIER_PRODUCT_API_VERSION', '1')
+                'api_key' => config('product-api.key'),
+                'api_base' => config('product-api.base'),
+                'api_version' => config('product-api.version')
             ]);
         });
+
+        $this->app->alias(ProductApiClient::class, 'product-api');
+    }
+
+    /**
+     * Bootstrap the application events.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        $configPath = __DIR__ . '/../config/product-api.php';
+        $this->publishes([$configPath => $this->getConfigPath()], 'config');
+    }
+
+    /**
+     * Get the config path
+     *
+     * @return string
+     */
+    protected function getConfigPath()
+    {
+        return config_path('product-api.php');
+    }
+
+    /**
+     * Get the services provided by the provider.
+     *
+     * @return array
+     */
+    public function provides()
+    {
+        return ['product-api', ProductApiClient::class];
+    }
+
+    /**
+     * Publish the config file
+     *
+     * @param  string $configPath
+     */
+    protected function publishConfig($configPath)
+    {
+        $this->publishes([$configPath => config_path('product-api.php')], 'config');
     }
 }

@@ -8,7 +8,6 @@ use Orchestra\Testbench\TestCase;
 use SchierProducts\SchierProductApi\Collection;
 use SchierProducts\SchierProductApi\Facades\ProductApi;
 use SchierProducts\SchierProductApi\Product;
-use SchierProducts\SchierProductApi\ProductApiClient;
 use SchierProducts\SchierProductApi\ProductType;
 use SchierProducts\SchierProductApi\SchierProductApiServiceProvider;
 use SchierProducts\SchierProductApi\Utilities\Utilities;
@@ -33,7 +32,7 @@ class LaravelTest extends TestCase
     protected function getPackageAliases($app)
     {
         return [
-            'ProductApi' => ProductApiClient::class,
+            'ProductApi' => ProductApi::class,
         ];
     }
 
