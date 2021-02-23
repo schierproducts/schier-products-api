@@ -21,8 +21,6 @@ class SchierProductApiServiceProvider extends ServiceProvider
                 'api_version' => config('product-api.version')
             ]);
         });
-
-        $this->app->alias(ProductApiClient::class, 'product-api');
     }
 
     /**

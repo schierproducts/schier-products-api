@@ -38,6 +38,21 @@ class LaravelTest extends TestCase
 
     /**
      * @test
+     * @covers \SchierProducts\SchierProductApi\SchierProductApiServiceProvider::register
+     */
+    public function facade_class_is_being_hydrated_correctly()
+    {
+        $apiKey = ProductApi::getApiKey();
+        $apiBase = ProductApi::getApiBase();
+
+        $this->assertNotNull($apiKey);
+        $this->assertNotNull($apiBase);
+        $this->assertEquals(config('product-api.key'), $apiKey);
+        $this->assertEquals(config('product-api.base'), $apiBase);
+    }
+
+    /**
+     * @test
      * @covers SchierProductApiServiceProvider::register
      * @covers \SchierProducts\SchierProductApi\ProductApiClient::productTypes
      */
