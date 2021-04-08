@@ -1,4 +1,4 @@
-![Build Status](https://app.chipperci.com/projects/09917f73-4b52-4729-9cd6-4e56c0d576cb/status/master)
+[![buddy pipeline](https://app.buddy.works/schierproducts/schier-products-api/pipelines/pipeline/320463/badge.svg?token=d8b7cd656f6e7fbdf1dd448778018de722743797c0c4eaf4d78c7696514ffe15 "buddy pipeline")](https://app.buddy.works/schierproducts/schier-products-api/pipelines/pipeline/320463)
 [![Latest Stable Version](https://poser.pugx.org/schierproducts/schier-product-api/v)](//packagist.org/packages/schierproducts/schier-product-api)
 [![Latest Unstable Version](https://poser.pugx.org/schierproducts/schier-product-api/v/unstable)](//packagist.org/packages/schierproducts/schier-product-api)
 
