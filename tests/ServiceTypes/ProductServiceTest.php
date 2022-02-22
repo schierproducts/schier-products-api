@@ -144,6 +144,10 @@ class ProductServiceTest  extends \PHPUnit\Framework\TestCase
     public function gets_product_with_related_products()
     {
         $response = $this->client->products->retrieve('4060-001-04');
+
+        if (!$response->related_products) {
+            $this->markTestSkipped('This product doesn\'t have any related products.');
+        }
         $this->assertNotCount(0, $response->related_products->allItems());
 
         if ($response->related_products->count() > 0) {
@@ -166,6 +170,11 @@ class ProductServiceTest  extends \PHPUnit\Framework\TestCase
     public function gets_product_with_accessories()
     {
         $response = $this->client->products->retrieve('4060-001-04');
+
+        if (!$response->accessories) {
+            $this->markTestSkipped('This product doesn\'t have any accessories.');
+        }
+
         $this->assertNotCount(0, $response->accessories->allItems());
 
         if ($response->accessories->count() > 0) {
