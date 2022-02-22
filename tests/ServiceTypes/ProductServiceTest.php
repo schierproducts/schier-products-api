@@ -67,6 +67,9 @@ class ProductServiceTest  extends \PHPUnit\Framework\TestCase
         $this->assertInstanceOf(ProductResources\ImageLibrary::class, $response->images->primary);
         $this->assertInstanceOf(ProductResources\ImageLibrary::class, $response->images->dimension);
 
+        // Processing validation
+        $this->assertInstanceOf(ProductResources\AwarenessProduct::class, $response->processing);
+
         // Dimensions validation
         $this->assertInstanceOf(ProductResources\DimensionSet::class, $response->base_dimensions);
         $this->assertInstanceOf(ProductResources\DimensionSet::class, $response->shipping_dimensions);
@@ -78,18 +81,13 @@ class ProductServiceTest  extends \PHPUnit\Framework\TestCase
         $this->assertTrue(isset($response->base_dimensions->standard->weight->value));
         $this->assertTrue(isset($response->base_dimensions->standard->weight->unit));
 
-        // Certifications validation
-        $this->assertInstanceOf(ProductResources\Certification::class, $response->certifications[0]);
-        $this->assertTrue(isset($response->certifications[0]->name));
-
         // Document validation
         $this->assertInstanceOf(ProductResources\DocumentLibrary::class, $response->spec_sheet);
         $this->assertInstanceOf(ProductResources\DocumentLibrary::class, $response->installation_guide);
-        $this->assertStringContainsString('csi-masterspec', $response->csi_masterspec);
 
         // Price validation
         $this->assertInstanceOf(ProductResources\ProductPrice::class, $response->price);
-        $this->assertEquals('393.00', $response->price->list);
+        $this->assertEquals('438.00', $response->price->list);
         $this->assertInstanceOf(ProductResources\Price::class, $response->price->wholesale);
         $this->assertInstanceOf(ProductResources\Price::class, $response->price->retail);
         $this->assertIsFloat($response->price->wholesale->multiplier);

@@ -31,5 +31,6 @@ class Types
         \SchierProducts\SchierProductApi\ProductResources\ProductImageLibrary::OBJECT_NAME => \SchierProducts\SchierProductApi\ProductResources\ProductImageLibrary::class,
         \SchierProducts\SchierProductApi\ProductResources\ProductOption::OBJECT_NAME => \SchierProducts\SchierProductApi\ProductResources\ProductOption::class,
         \SchierProducts\SchierProductApi\ProductResources\ProductPrice::OBJECT_NAME => \SchierProducts\SchierProductApi\ProductResources\ProductPrice::class,
+        \SchierProducts\SchierProductApi\ProductResources\AwarenessProduct::OBJECT_NAME => \SchierProducts\SchierProductApi\ProductResources\AwarenessProduct::class,
     ];
 }

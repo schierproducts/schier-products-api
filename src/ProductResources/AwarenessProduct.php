@@ -15,5 +15,5 @@ namespace SchierProducts\SchierProductApi\ProductResources;
  */
 class AwarenessProduct extends ProductResource
 {
-    public const OBJECT_NAME = 'product-option';
+    public const OBJECT_NAME = 'awareness-product';
 }
