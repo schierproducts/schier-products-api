@@ -5,6 +5,7 @@ namespace SchierProducts\SchierProductApi;
 
 
 use SchierProducts\SchierProductApi\Operations;
+use SchierProducts\SchierProductApi\ProductResources\AwarenessProduct;
 use SchierProducts\SchierProductApi\ProductResources\Certification;
 use SchierProducts\SchierProductApi\ProductResources\DimensionSet;
 use SchierProducts\SchierProductApi\ProductResources\DocumentLibrary;
@@ -20,6 +21,7 @@ use SchierProducts\SchierProductApi\ProductResources\ProductImageLibrary;
  * @property string|null $description A long-winded description of the product. Will contain some marketing information.
  * @property string|null $short_description A short concise description of the product.
  * @property ProductImageLibrary $images A list of available images.
+ * @property AwarenessProduct $processing Any available processing time information associated with the retrieved product
  * @property DimensionSet $base_dimensions The dimensions of the product
  * @property DimensionSet $shipping_dimensions The shipping dimensions of th product
  * @property Certification[] $certifications List of associated certifications
