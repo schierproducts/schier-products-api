@@ -35,6 +35,7 @@ use SchierProducts\SchierProductApi\ProductResources\ProductImageLibrary;
  * @property DimensionSet|null $liquid_capacity If available, liquid capacity of the interceptor
  * @property Collection<SimpleProduct>|null $related_products Related products with like options, sizes, etc
  * @property Collection<SimpleProduct>|null $accessories Compatible accessories for this product
+ * @property Collection<SimpleProduct>|null $compatible_products Products that reference this product as a compatible accessory
  * @property Collection<SimpleProduct>|null $options Available customization options
  */
 class Product extends SimpleProduct
