@@ -221,7 +221,8 @@ class ProductServiceTest  extends \PHPUnit\Framework\TestCase
             $this->assertInstanceOf(\SchierProducts\SchierProductApi\ProductResources\ProductOption::class, $option);
             $this->assertIsInt($option->id);
             $this->assertIsString($option->name);
-            $this->assertIsString($option->price);
+            $this->assertInstanceOf(\SchierProducts\SchierProductApi\Resources\InventoryItem::class, $option->price);
+            $this->assertInstanceOf(\SchierProducts\SchierProductApi\ProductResources\Price::class, $option->price->wholesale);
         }
     }
 }
