@@ -19,9 +19,11 @@ use SchierProducts\SchierProductApi\ProductResources\ProductImageLibrary;
  * @package SchierProducts\SchierProductApi
  * @property string|null $description A long-winded description of the product. Will contain some marketing information.
  * @property string|null $short_description A short concise description of the product.
+ * @property string|null $shipping_group The shipping table that this product is associated with in ShipperHQ
  * @property ProductImageLibrary $images A list of available images.
  * @property DimensionSet $base_dimensions The dimensions of the product
  * @property DimensionSet $shipping_dimensions The shipping dimensions of th product
+ * @property int $manway_access_ports The number of "manway" access ports that require a cover
  * @property Certification[] $certifications List of associated certifications
  * @property DocumentLibrary $spec_sheet The product spec sheet in various formats
  * @property DocumentLibrary $installation_guide The product installation guide in various formats
