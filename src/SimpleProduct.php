@@ -14,7 +14,7 @@ use SchierProducts\SchierProductApi\ProductResources\ProductPrice;
  * @package SchierProducts\SchierProductApi
  * @property string $name The user-friendly name of the product type
  * @property string $short_name A shorter, easier to use name
- * @property string $type The name of the product type
+ * @property string[] $types The product type categories that this product is associated with
  * @property string $part_number The default part number of this product
  * @property BaseModel $base_model The base model information
  * @property string|null $store_id The unique id of this product in the ecommerce website
