@@ -18,6 +18,7 @@ use SchierProducts\SchierProductApi\ProductResources\ProductPrice;
  * @property string $part_number The default part number of this product
  * @property BaseModel $base_model The base model information
  * @property string|null $store_id The unique id of this product in the ecommerce website
+ * @property string|null $parent_store_id The unique id of this product's parent; if it exists
  * @property ProductPrice $price Pricing information for the product
  * @property AwarenessProduct $processing Any available processing time information associated with the retrieved product
  */
