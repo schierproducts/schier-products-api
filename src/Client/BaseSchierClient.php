@@ -55,7 +55,7 @@ class BaseSchierClient implements \SchierProducts\SchierProductApi\Client\Schier
      * @param string $method the HTTP method
      * @param string $path the path of the request
      * @param array $params the parameters of the request
-     * @param array|Utilities\RequestOptions $opts the special modifiers of the request
+     * @param array|Utilities\RequestOptions|null $opts the special modifiers of the request
      *
      * @return InventoryItem the object returned by Stripe's API
      * @throws Exception\AuthenticationException|Exception\ApiErrorException
@@ -79,7 +79,7 @@ class BaseSchierClient implements \SchierProducts\SchierProductApi\Client\Schier
      * @param string $method the HTTP method
      * @param string $path the path of the request
      * @param array $params the parameters of the request
-     * @param array|\SchierProducts\SchierProductApi\Utilities\RequestOptions $options the special modifiers of the request
+     * @param array|\SchierProducts\SchierProductApi\Utilities\RequestOptions|null $options the special modifiers of the request
      *
      * @return \SchierProducts\SchierProductApi\Collection of ApiResources
      */

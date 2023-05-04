@@ -4,7 +4,7 @@
 namespace SchierProducts\SchierProductApi\Tests;
 
 
-use SchierProducts\SchierProductApi\ProductApiClient;
+use SchierProducts\SchierProductApi\ApiClients\ProductApi\ProductApiClient;
 use SchierProducts\SchierProductApi\SchierProductApi;
 
 trait WithMockResponses

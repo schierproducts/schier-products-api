@@ -4,8 +4,7 @@
 namespace SchierProducts\SchierProductApi\Tests;
 
 
-use SchierProducts\SchierProductApi\ProductApiClient;
-use SchierProducts\SchierProductApi\ProductType;
+use SchierProducts\SchierProductApi\ApiClients\ProductApi\ProductApiClient;
 use SchierProducts\SchierProductApi\SchierProductApi;
 use SchierProducts\SchierProductApi\Utilities\Utilities;
 

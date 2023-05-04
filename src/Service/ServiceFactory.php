@@ -3,6 +3,10 @@
 
 namespace SchierProducts\SchierProductApi\Service;
 
+use SchierProducts\SchierProductApi\ApiClients\ProductApi\Service\ProductService;
+use SchierProducts\SchierProductApi\ApiClients\ProductApi\Service\ProductTypeService;
+use SchierProducts\SchierProductApi\ApiClients\TerritoryApi\Service\TerritoryService;
+
 /**
  * Service factory class for API resources in the root namespace.
  *
@@ -20,6 +24,7 @@ class ServiceFactory extends AbstractServiceFactory
         'products' => ProductService::class,
         'productTypes' => ProductTypeService::class,
         'collections' => ItemCollectionService::class,
+        'territories' => TerritoryService::class,
     ];
 
     protected function getServiceClass($name)

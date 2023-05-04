@@ -156,7 +156,7 @@ class Utilities
      */
     public static function convertToInventoryItem($resp, $opts)
     {
-        $types = \SchierProducts\SchierProductApi\Utilities\Types::CLASS_MAP;
+        $types = \SchierProducts\SchierProductApi\Utilities\Types::getClassMap();
         if (self::isList($resp)) {
             $mapped = [];
             foreach ($resp as $i) {

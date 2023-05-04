@@ -5,7 +5,7 @@ namespace SchierProducts\SchierProductApi\Service;
 
 /**
  * Abstract base class for all service factories used to expose service
- * instances through {@link \SchierProducts\SchierProductApi\ProductApiClient}.
+ * instances through {@link \SchierProducts\SchierProductApi\ApiClients\ProductApi\ProductApiClient}.
  *
  * Service factories serve two purposes:
  *
@@ -40,7 +40,7 @@ abstract class AbstractServiceFactory
     /**
      * @param string $name
      *
-     * @return null|AbstractService|AbstractServiceFactory
+     * @return null|AbstractService|AbstractServiceFactory|ApiService
      */
     public function __get($name)
     {

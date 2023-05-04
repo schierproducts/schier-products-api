@@ -123,7 +123,7 @@ class Collection extends InventoryItem implements \Countable, \IteratorAggregate
     /**
      * @return int the number of objects in the current page
      */
-    public function count()
+    public function count() : int
     {
         return \count($this->data);
     }
@@ -132,7 +132,7 @@ class Collection extends InventoryItem implements \Countable, \IteratorAggregate
      * @return \ArrayIterator an iterator that can be used to iterate
      *    across objects in the current page
      */
-    public function getIterator()
+    public function getIterator(): \ArrayIterator
     {
         return new \ArrayIterator($this->data);
     }

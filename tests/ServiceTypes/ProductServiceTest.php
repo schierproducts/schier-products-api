@@ -4,8 +4,7 @@
 namespace SchierProducts\SchierProductApi\Tests\ServiceTypes;
 
 
-use SchierProducts\SchierProductApi\ProductResources;
-use SchierProducts\SchierProductApi\SimpleProduct;
+use SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\SimpleProduct;
 use SchierProducts\SchierProductApi\Tests\WithMockResponses;
 
 class ProductServiceTest  extends \PHPUnit\Framework\TestCase
@@ -22,7 +21,7 @@ class ProductServiceTest  extends \PHPUnit\Framework\TestCase
 
     /**
      * @test
-     * @covers \SchierProducts\SchierProductApi\Service\ProductService::all
+     * @covers \SchierProducts\SchierProductApi\ApiClients\ProductApi\Service\ProductService::all
      * @throws \SchierProducts\SchierProductApi\Exception\ApiErrorException
      */
     public function gets_all_available_products()
@@ -36,17 +35,17 @@ class ProductServiceTest  extends \PHPUnit\Framework\TestCase
 
     /**
      * @test
-     * @covers \SchierProducts\SchierProductApi\Service\ProductService::retrieve
-     * @covers \SchierProducts\SchierProductApi\Product
-     * @covers \SchierProducts\SchierProductApi\ProductResources\ProductImageLibrary
-     * @covers \SchierProducts\SchierProductApi\ProductResources\ImageLibrary
-     * @covers \SchierProducts\SchierProductApi\ProductResources\DimensionSet
-     * @covers \SchierProducts\SchierProductApi\ProductResources\Dimensions
-     * @covers \SchierProducts\SchierProductApi\ProductResources\Measurement
-     * @covers \SchierProducts\SchierProductApi\ProductResources\Certification
-     * @covers \SchierProducts\SchierProductApi\ProductResources\DocumentLibrary
-     * @covers \SchierProducts\SchierProductApi\ProductResources\Price
-     * @covers \SchierProducts\SchierProductApi\ProductResources\ProductPrice
+     * @covers \SchierProducts\SchierProductApi\ApiClients\ProductApi\Service\ProductService::retrieve
+     * @covers \SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\Product
+     * @covers \SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\ProductImageLibrary
+     * @covers \SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\ImageLibrary
+     * @covers \SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\DimensionSet
+     * @covers \SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\Dimensions
+     * @covers \SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\Measurement
+     * @covers \SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\Certification
+     * @covers \SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\DocumentLibrary
+     * @covers \SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\Price
+     * @covers \SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\ProductPrice
      * @throws \SchierProducts\SchierProductApi\Exception\ApiErrorException
      */
     public function gets_non_customization_product_by_part_number()
@@ -63,33 +62,33 @@ class ProductServiceTest  extends \PHPUnit\Framework\TestCase
         $this->assertEquals('Clamping collar for units with 21" covers, recessed and suspended.', $response->short_description);
 
         // Images validation
-        $this->assertInstanceOf(ProductResources\ProductImageLibrary::class, $response->images);
-        $this->assertInstanceOf(ProductResources\ImageLibrary::class, $response->images->primary);
-        $this->assertInstanceOf(ProductResources\ImageLibrary::class, $response->images->dimension);
+        $this->assertInstanceOf(\SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\ProductImageLibrary::class, $response->images);
+        $this->assertInstanceOf(\SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\ImageLibrary::class, $response->images->primary);
+        $this->assertInstanceOf(\SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\ImageLibrary::class, $response->images->dimension);
 
         // Processing validation
-        $this->assertInstanceOf(ProductResources\AwarenessProduct::class, $response->processing);
+        $this->assertInstanceOf(\SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\AwarenessProduct::class, $response->processing);
 
         // Dimensions validation
-        $this->assertInstanceOf(ProductResources\DimensionSet::class, $response->base_dimensions);
-        $this->assertInstanceOf(ProductResources\DimensionSet::class, $response->shipping_dimensions);
-        $this->assertInstanceOf(ProductResources\Dimensions::class, $response->base_dimensions->standard);
-        $this->assertInstanceOf(ProductResources\Measurement::class, $response->base_dimensions->standard->length);
-        $this->assertInstanceOf(ProductResources\Measurement::class, $response->base_dimensions->standard->width);
-        $this->assertInstanceOf(ProductResources\Measurement::class, $response->base_dimensions->standard->height);
-        $this->assertInstanceOf(ProductResources\Measurement::class, $response->base_dimensions->standard->weight);
+        $this->assertInstanceOf(\SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\DimensionSet::class, $response->base_dimensions);
+        $this->assertInstanceOf(\SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\DimensionSet::class, $response->shipping_dimensions);
+        $this->assertInstanceOf(\SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\Dimensions::class, $response->base_dimensions->standard);
+        $this->assertInstanceOf(\SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\Measurement::class, $response->base_dimensions->standard->length);
+        $this->assertInstanceOf(\SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\Measurement::class, $response->base_dimensions->standard->width);
+        $this->assertInstanceOf(\SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\Measurement::class, $response->base_dimensions->standard->height);
+        $this->assertInstanceOf(\SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\Measurement::class, $response->base_dimensions->standard->weight);
         $this->assertTrue(isset($response->base_dimensions->standard->weight->value));
         $this->assertTrue(isset($response->base_dimensions->standard->weight->unit));
 
         // Document validation
-        $this->assertInstanceOf(ProductResources\DocumentLibrary::class, $response->spec_sheet);
-        $this->assertInstanceOf(ProductResources\DocumentLibrary::class, $response->installation_guide);
+        $this->assertInstanceOf(\SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\DocumentLibrary::class, $response->spec_sheet);
+        $this->assertInstanceOf(\SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\DocumentLibrary::class, $response->installation_guide);
 
         // Price validation
-        $this->assertInstanceOf(ProductResources\ProductPrice::class, $response->price);
+        $this->assertInstanceOf(\SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\ProductPrice::class, $response->price);
         $this->assertEquals('438.00', $response->price->list);
-        $this->assertInstanceOf(ProductResources\Price::class, $response->price->wholesale);
-        $this->assertInstanceOf(ProductResources\Price::class, $response->price->retail);
+        $this->assertInstanceOf(\SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\Price::class, $response->price->wholesale);
+        $this->assertInstanceOf(\SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\Price::class, $response->price->retail);
         $this->assertIsFloat($response->price->wholesale->multiplier);
         $this->assertIsString($response->price->wholesale->price);
         $this->assertIsFloat($response->price->retail->multiplier);
@@ -99,8 +98,8 @@ class ProductServiceTest  extends \PHPUnit\Framework\TestCase
     /**
      * @test
      * @testdox Grease Interceptor with  flow rate ratings.
-     * @covers \SchierProducts\SchierProductApi\Service\ProductService::retrieve
-     * @covers \SchierProducts\SchierProductApi\Product
+     * @covers \SchierProducts\SchierProductApi\ApiClients\ProductApi\Service\ProductService::retrieve
+     * @covers \SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\Product
      * @covers \SchierProducts\SchierProductApi\FlowRating
      * @covers \SchierProducts\SchierProductApi\GreaseCapacityMeasurement
      * @covers \SchierProducts\SchierProductApi\InstallationOptions
@@ -114,15 +113,15 @@ class ProductServiceTest  extends \PHPUnit\Framework\TestCase
 
         if (count($response->ratings) > 0) {
             $rating = $response->ratings[0];
-            $this->assertInstanceOf(ProductResources\FlowRating::class, $rating);
-            $this->assertInstanceOf(ProductResources\DimensionSet::class, $rating->flow_rate);
-            $this->assertInstanceOf(ProductResources\GreaseCapacityMeasurement::class, $rating->grease_capacity);
-            $this->assertInstanceOf(ProductResources\DimensionSet::class, $rating->grease_capacity->volume);
-            $this->assertInstanceOf(ProductResources\DimensionSet::class, $rating->grease_capacity->weight);
+            $this->assertInstanceOf(\SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\FlowRating::class, $rating);
+            $this->assertInstanceOf(\SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\DimensionSet::class, $rating->flow_rate);
+            $this->assertInstanceOf(\SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\GreaseCapacityMeasurement::class, $rating->grease_capacity);
+            $this->assertInstanceOf(\SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\DimensionSet::class, $rating->grease_capacity->volume);
+            $this->assertInstanceOf(\SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\DimensionSet::class, $rating->grease_capacity->weight);
         }
 
-        $this->assertInstanceOf(ProductResources\InstallationOptions::class, $response->installation_options);
-        $this->assertInstanceOf(ProductResources\InstallationOptionsLocation::class, $response->installation_options->location);
+        $this->assertInstanceOf(\SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\InstallationOptions::class, $response->installation_options);
+        $this->assertInstanceOf(\SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\InstallationOptionsLocation::class, $response->installation_options->location);
         $this->assertIsBool($response->installation_options->location->indoors);
         $this->assertIsBool($response->installation_options->location->indoors_buried);
         $this->assertIsBool($response->installation_options->location->outdoors);
@@ -130,15 +129,15 @@ class ProductServiceTest  extends \PHPUnit\Framework\TestCase
         $this->assertIsBool($response->installation_options->location->other);
         $this->assertIsString($response->installation_options->location_as_text);
         $this->assertIsBool($response->installation_options->traffic_area);
-        $this->assertInstanceOf(ProductResources\DimensionSet::class, $response->solids_capacity);
-        $this->assertInstanceOf(ProductResources\DimensionSet::class, $response->liquid_capacity);
+        $this->assertInstanceOf(\SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\DimensionSet::class, $response->solids_capacity);
+        $this->assertInstanceOf(\SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\DimensionSet::class, $response->liquid_capacity);
     }
 
     /**
      * @test
      * @testdox Grease Interceptor with related products.
-     * @covers \SchierProducts\SchierProductApi\Service\ProductService::retrieve
-     * @covers \SchierProducts\SchierProductApi\Product
+     * @covers \SchierProducts\SchierProductApi\ApiClients\ProductApi\Service\ProductService::retrieve
+     * @covers \SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\Product
      * @throws \SchierProducts\SchierProductApi\Exception\ApiErrorException
      */
     public function gets_product_with_related_products()
@@ -155,16 +154,16 @@ class ProductServiceTest  extends \PHPUnit\Framework\TestCase
              * @var SimpleProduct $product
              */
             $product = $response->related_products->first();
-            $this->assertInstanceOf(\SchierProducts\SchierProductApi\SimpleProduct::class, $product);
-            $this->assertInstanceOf(\SchierProducts\SchierProductApi\ProductResources\ProductPrice::class, $product->price);
+            $this->assertInstanceOf(\SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\SimpleProduct::class, $product);
+            $this->assertInstanceOf(\SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\ProductPrice::class, $product->price);
         }
     }
 
     /**
      * @test
      * @testdox Grease Interceptor with accessories.
-     * @covers \SchierProducts\SchierProductApi\Service\ProductService::retrieve
-     * @covers \SchierProducts\SchierProductApi\Product
+     * @covers \SchierProducts\SchierProductApi\ApiClients\ProductApi\Service\ProductService::retrieve
+     * @covers \SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\Product
      * @throws \SchierProducts\SchierProductApi\Exception\ApiErrorException
      */
     public function gets_product_with_accessories()
@@ -182,15 +181,15 @@ class ProductServiceTest  extends \PHPUnit\Framework\TestCase
              * @var SimpleProduct $product
              */
             $product = $response->accessories->first();
-            $this->assertInstanceOf(\SchierProducts\SchierProductApi\SimpleProduct::class, $product);
-            $this->assertInstanceOf(\SchierProducts\SchierProductApi\ProductResources\ProductPrice::class, $product->price);
+            $this->assertInstanceOf(\SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\SimpleProduct::class, $product);
+            $this->assertInstanceOf(\SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\ProductPrice::class, $product->price);
         }
     }
 
     /**
      * @test
      * @testdox Grease Interceptor with no available optional configurations.
-     * @covers \SchierProducts\SchierProductApi\Service\ProductService::retrieve
+     * @covers \SchierProducts\SchierProductApi\ApiClients\ProductApi\Service\ProductService::retrieve
      * @throws \SchierProducts\SchierProductApi\Exception\ApiErrorException
      */
     public function product_with_no_customizations_returns_404()
@@ -204,8 +203,8 @@ class ProductServiceTest  extends \PHPUnit\Framework\TestCase
     /**
      * @test
      * @testdox Grease Interceptor with no available optional configurations.
-     * @covers \SchierProducts\SchierProductApi\Service\ProductService::retrieve
-     * @covers \SchierProducts\SchierProductApi\Product
+     * @covers \SchierProducts\SchierProductApi\ApiClients\ProductApi\Service\ProductService::retrieve
+     * @covers \SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\Product
      * @throws \SchierProducts\SchierProductApi\Exception\ApiErrorException
      */
     public function product_with_customizations_returns_result()
@@ -215,14 +214,14 @@ class ProductServiceTest  extends \PHPUnit\Framework\TestCase
 
         if ($response->options->count() > 0) {
             /**
-             * @var \SchierProducts\SchierProductApi\ProductResources\ProductOption $option
+             * @var \SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\ProductOption $option
              */
             $option = $response->options->first();
-            $this->assertInstanceOf(\SchierProducts\SchierProductApi\ProductResources\ProductOption::class, $option);
+            $this->assertInstanceOf(\SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\ProductOption::class, $option);
             $this->assertIsInt($option->id);
             $this->assertIsString($option->name);
             $this->assertInstanceOf(\SchierProducts\SchierProductApi\Resources\InventoryItem::class, $option->price);
-            $this->assertInstanceOf(\SchierProducts\SchierProductApi\ProductResources\Price::class, $option->price->wholesale);
+            $this->assertInstanceOf(\SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\Price::class, $option->price->wholesale);
         }
     }
 }
