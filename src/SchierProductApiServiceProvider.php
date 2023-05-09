@@ -31,10 +31,6 @@ class SchierProductApiServiceProvider extends ServiceProvider
             ]);
         });
 
-        $this->app->bind('product-api', function() {
-            return $this->app->make(ProductApiClient::class);
-        });
-
         $this->app->bind('schier-api', function() {
             return $this->app->make(SchierApiManager::class);
         });
@@ -78,6 +74,6 @@ class SchierProductApiServiceProvider extends ServiceProvider
      */
     protected function publishConfig($configPath)
     {
-        $this->publishes([$configPath => config_path('product-api.php')], 'config');
+        $this->publishes([$configPath => config_path('schier-api.php')], 'config');
     }
 }

@@ -7,6 +7,7 @@ use SchierProducts\SchierProductApi\Exception;
 
 class ProductTypeService extends \SchierProducts\SchierProductApi\Service\ApiService
 {
+    const PATH = '/product/product-types';
     /**
      * Returns a list of all of the available, active products. The products are returned sorted by name.
      *
@@ -17,7 +18,7 @@ class ProductTypeService extends \SchierProducts\SchierProductApi\Service\ApiSer
      */
     public function all($params = null, $opts = null)
     {
-        return $this->requestCollection('get', '/product-types', $params, $opts);
+        return $this->requestCollection('get', self::PATH, $params, $opts);
     }
 
     /**
@@ -45,6 +46,6 @@ class ProductTypeService extends \SchierProducts\SchierProductApi\Service\ApiSer
      */
     public function products($key, $params = null, $opts = null)
     {
-        return $this->requestCollection('get', $this->buildPath('/product-types/%s/products', $key), $params, $opts);
+        return $this->requestCollection('get', $this->buildPath(self::PATH.'/%s/products', $key), $params, $opts);
     }
 }
