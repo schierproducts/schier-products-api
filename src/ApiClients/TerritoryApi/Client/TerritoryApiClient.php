@@ -45,12 +45,10 @@ class TerritoryApiClient extends BaseSchierClient
     public function repFirms(string|null $key = null, array|null $params = []): Collection|InventoryItem|RepFirm
     {
         if ($key) {
-            return $this->repFirms
-                ->retrieve($key, $params);
+            return $this->repFirms->retrieve($key, $params);
         }
 
-        return $this->repFirms
-            ->all($params);
+        return $this->repFirms->all( $params);
     }
 
 

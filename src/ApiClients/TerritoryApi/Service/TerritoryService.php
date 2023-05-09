@@ -9,7 +9,7 @@ use SchierProducts\SchierProductApi\Utilities\RequestOptions;
 
 class TerritoryService extends \SchierProducts\SchierProductApi\Service\ApiService
 {
-    const PATH = '/territory';
+    const PATH = '/territory/territories';
 
     public function all(array|null $params = null, array|RequestOptions|null $opts = null): Collection
     {

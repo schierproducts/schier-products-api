@@ -13,6 +13,7 @@ use SchierProducts\SchierProductApi\Service\ApiService;
  */
 class ProductService extends ApiService
 {
+    const PATH = '/product/products';
     /**
      * Returns a list of all of the available, active products. The products are returned sorted by name.
      *
@@ -25,7 +26,7 @@ class ProductService extends ApiService
      */
     public function all($params = null, $opts = null)
     {
-        return $this->requestCollection('get', '/products', $params, $opts);
+        return $this->requestCollection('get', self::PATH, $params, $opts);
     }
 
     /**
@@ -39,6 +40,6 @@ class ProductService extends ApiService
      */
     public function retrieve($partNumber, $params = null, $opts = null)
     {
-        return $this->request('get', $this->buildPath('/products/%s', urlencode($partNumber)), $params, $opts);
+        return $this->request('get', $this->buildPath(self::PATH. '/%s', urlencode($partNumber)), $params, $opts);
     }
 }

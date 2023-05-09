@@ -19,10 +19,13 @@ class ApiRequest
      */
     private $_apiBase;
 
+
+
     /**
      * @var HttpClient\RequestClient
      */
     private static $_httpClient;
+    private string $_apiVersion;
 
     /**
      * ApiRequest Constructor
@@ -30,12 +33,10 @@ class ApiRequest
      * @param string|null $apiKey
      * @param string|null $apiBase
      */
-    public function __construct(?string $apiKey = null, ?string $apiBase = null)
+    public function __construct(string $apiKey, string $apiBase, string $apiVersion = '1')
     {
         $this->_apiKey = $apiKey;
-        if (!$apiBase) {
-            $apiBase = SchierProductApi::$apiBase;
-        }
+        $this->_apiVersion = $apiVersion;
         $this->_apiBase = $apiBase;
     }
 
@@ -53,8 +54,10 @@ class ApiRequest
     {
         $params = $params ?: [];
         $headers = $headers ?: [];
+
         list($rbody, $rcode, $rheaders, $currentApiKey) =
             $this->_requestRaw($method, $url, $params, $headers);
+
         $json = $this->_interpretResponse($rbody, $rcode, $rheaders);
         $response = new ApiResponse($rbody, $rcode, $rheaders, $json);
 
@@ -75,9 +78,6 @@ class ApiRequest
     private function _requestRaw(string $method, string $url, array $params = [], array $headers = []): array
     {
         $currentApiKey = $this->_apiKey;
-        if (!$currentApiKey) {
-            $currentApiKey = SchierProductApi::$apiKey;
-        }
 
         if (!$currentApiKey) {
             $msg = 'No API key provided.  (HINT: set your API key using '
@@ -91,8 +91,8 @@ class ApiRequest
         $absUrl = $this->_apiBase . $url;
         $params = self::_encodeObjects($params);
         $defaultHeaders = $this->_defaultHeaders($currentApiKey);
-        if (SchierProductApi::$apiVersion) {
-            $defaultHeaders['Product-Api-Version'] = SchierProductApi::$apiVersion;
+        if ($this->_apiVersion) {
+            $defaultHeaders['Product-Api-Version'] = $this->_apiVersion;
         }
 
         $combinedHeaders = \array_merge($defaultHeaders, $headers);
