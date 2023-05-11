@@ -21,7 +21,7 @@ class ProductTypeServiceTest  extends \PHPUnit\Framework\TestCase
 
     /**
      * @test
-     * @covers \SchierProducts\SchierProductApi\Service\ProductTypeService::all
+     * @covers \SchierProducts\SchierProductApi\ApiClients\ProductApi\Service\ProductTypeService::all
      * @throws \SchierProducts\SchierProductApi\Exception\ApiErrorException
      */
     public function gets_all_available_product_types()
@@ -34,7 +34,7 @@ class ProductTypeServiceTest  extends \PHPUnit\Framework\TestCase
 
     /**
      * @test
-     * @covers \SchierProducts\SchierProductApi\Service\ProductTypeService::all
+     * @covers \SchierProducts\SchierProductApi\ApiClients\ProductApi\Service\ProductTypeService::all
      * @throws \SchierProducts\SchierProductApi\Exception\ApiErrorException
      */
     public function gets_product_type_based_on_key()
@@ -49,7 +49,7 @@ class ProductTypeServiceTest  extends \PHPUnit\Framework\TestCase
 
     /**
      * @test
-     * @covers \SchierProducts\SchierProductApi\Service\ProductTypeService::products
+     * @covers \SchierProducts\SchierProductApi\ApiClients\ProductApi\Service\ProductTypeService::products
      * @throws \SchierProducts\SchierProductApi\Exception\ApiErrorException
      */
     public function get_products_based_on_product_type()
@@ -71,7 +71,7 @@ class ProductTypeServiceTest  extends \PHPUnit\Framework\TestCase
 
     /**
      * @test
-     * @covers \SchierProducts\SchierProductApi\ProductType::products
+     * @covers \SchierProducts\SchierProductApi\ApiClients\ProductApi\ProductType::products
      * @throws \SchierProducts\SchierProductApi\Exception\ApiErrorException
      */
     public function get_products_based_on_product_type_from_retrieved_object()

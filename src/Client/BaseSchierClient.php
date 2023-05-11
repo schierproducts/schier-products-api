@@ -19,6 +19,10 @@ class BaseSchierClient implements \SchierProducts\SchierProductApi\Client\Schier
 
     /** @var Utilities\RequestOptions */
     private $defaultOpts;
+    protected string $apiKey;
+    protected string $apiBase;
+    protected string $apiVersion;
+
 
     /**
      * RequestClient constructor.
@@ -39,6 +43,11 @@ class BaseSchierClient implements \SchierProducts\SchierProductApi\Client\Schier
 
         $this->config = $config;
 
+        $this->apiKey = $config['api_key'];
+        $this->apiBase = $config['api_base'];
+        $this->apiVersion = $config['api_version'];
+
+        ////
         if ($this->config['api_key']) {
             SchierProductApi::setApiKey($this->config['api_key']);
         }
@@ -55,7 +64,7 @@ class BaseSchierClient implements \SchierProducts\SchierProductApi\Client\Schier
      * @param string $method the HTTP method
      * @param string $path the path of the request
      * @param array $params the parameters of the request
-     * @param array|Utilities\RequestOptions $opts the special modifiers of the request
+     * @param array|Utilities\RequestOptions|null $opts the special modifiers of the request
      *
      * @return InventoryItem the object returned by Stripe's API
      * @throws Exception\AuthenticationException|Exception\ApiErrorException
@@ -66,7 +75,7 @@ class BaseSchierClient implements \SchierProducts\SchierProductApi\Client\Schier
         $baseUrl = $opts->apiBase ?: $this->getApiBase();
         $httpFactory = SchierProductApi::getHttpClient();
 
-        $request = new \SchierProducts\SchierProductApi\ApiRequest($this->apiKeyForRequest($opts), $baseUrl);
+        $request = new \SchierProducts\SchierProductApi\ApiRequest($this->getApiKey(), $baseUrl);
         $request->setHttpClient($httpFactory);
 
         list($response, $opts->apiKey) = $request->request($method, $path, $params, $opts->headers);
@@ -79,7 +88,7 @@ class BaseSchierClient implements \SchierProducts\SchierProductApi\Client\Schier
      * @param string $method the HTTP method
      * @param string $path the path of the request
      * @param array $params the parameters of the request
-     * @param array|\SchierProducts\SchierProductApi\Utilities\RequestOptions $options the special modifiers of the request
+     * @param array|\SchierProducts\SchierProductApi\Utilities\RequestOptions|null $options the special modifiers of the request
      *
      * @return \SchierProducts\SchierProductApi\Collection of ApiResources
      */
@@ -103,7 +112,7 @@ class BaseSchierClient implements \SchierProducts\SchierProductApi\Client\Schier
      */
     public function getApiKey()
     {
-        return $this->config['api_key'];
+        return $this->apiKey ?? $this->config['api_key'];
     }
 
     /**
@@ -111,7 +120,7 @@ class BaseSchierClient implements \SchierProducts\SchierProductApi\Client\Schier
      */
     public function getApiBase()
     {
-        return $this->config['api_base'];
+        return $this->apiBase ?? $this->config['api_base'];
     }
 
     /**

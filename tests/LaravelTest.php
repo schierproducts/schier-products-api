@@ -5,10 +5,10 @@ namespace SchierProducts\SchierProductApi\Tests;
 
 
 use Orchestra\Testbench\TestCase;
+use SchierProducts\SchierProductApi\ApiClients\ProductApi\ProductType;
+use SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\Product;
 use SchierProducts\SchierProductApi\Collection;
 use SchierProducts\SchierProductApi\Facades\ProductApi;
-use SchierProducts\SchierProductApi\Product;
-use SchierProducts\SchierProductApi\ProductType;
 use SchierProducts\SchierProductApi\SchierProductApiServiceProvider;
 use SchierProducts\SchierProductApi\Utilities\Utilities;
 
@@ -54,7 +54,7 @@ class LaravelTest extends TestCase
     /**
      * @test
      * @covers SchierProductApiServiceProvider::register
-     * @covers \SchierProducts\SchierProductApi\ProductApiClient::productTypes
+     * @covers \SchierProducts\SchierProductApi\ApiClients\ProductApi\ProductApiClient::productTypes
      */
     public function product_types_can_be_retrieved_via_facade()
     {
@@ -72,7 +72,7 @@ class LaravelTest extends TestCase
     /**
      * @test
      * @covers SchierProductApiServiceProvider::register
-     * @covers \SchierProducts\SchierProductApi\ProductApiClient::productTypes
+     * @covers \SchierProducts\SchierProductApi\ApiClients\ProductApi\ProductApiClient::productTypes
      */
     public function product_type_by_key_can_be_retrieved_via_facade()
     {
@@ -91,7 +91,7 @@ class LaravelTest extends TestCase
     /**
      * @test
      * @covers SchierProductApiServiceProvider::register
-     * @covers \SchierProducts\SchierProductApi\ProductApiClient::products
+     * @covers \SchierProducts\SchierProductApi\ApiClients\ProductApi\ProductApiClient::products
      */
     public function products_can_be_retrieved_via_facade()
     {
@@ -109,7 +109,7 @@ class LaravelTest extends TestCase
     /**
      * @test
      * @covers SchierProductApiServiceProvider::register
-     * @covers \SchierProducts\SchierProductApi\ProductApiClient::products
+     * @covers \SchierProducts\SchierProductApi\ApiClients\ProductApi\ProductApiClient::products
      */
     public function single_product_can_be_retrieved_via_facade()
     {

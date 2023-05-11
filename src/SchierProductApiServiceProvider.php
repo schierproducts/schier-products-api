@@ -5,21 +5,34 @@ namespace SchierProducts\SchierProductApi;
 
 
 use Illuminate\Support\ServiceProvider;
-use SchierProducts\SchierProductApi\Facades\ProductApi;
+use SchierProducts\SchierProductApi\ApiClients\ProductApi\ProductApiClient;
+use SchierProducts\SchierProductApi\ApiClients\TerritoryApi\Client\TerritoryApiClient;
 
 class SchierProductApiServiceProvider extends ServiceProvider
 {
     public function register()
     {
-        $configPath = __DIR__ . '/../config/product-api.php';
-        $this->mergeConfigFrom($configPath, 'product-api');
+        $configPath = __DIR__ . '/../config/schier-api.php';
+        $this->mergeConfigFrom($configPath, 'schier-api');
 
-        $this->app->bind('product-api', function() {
+        $this->app->singleton(ProductApiClient::class, function() {
             return new ProductApiClient([
-                'api_key' => config('product-api.key'),
-                'api_base' => config('product-api.base'),
-                'api_version' => config('product-api.version')
+                'api_key' => config('schier-api.clients.product.key'),
+                'api_base' => config('schier-api.clients.product.base'),
+                'api_version' => config('schier-api.clients.product.version')
             ]);
+        });
+
+        $this->app->singleton(TerritoryApiClient::class, function() {
+            return new TerritoryApiClient([
+                'api_key' => config('schier-api.clients.territory.key'),
+                'api_base' => config('schier-api.clients.territory.base'),
+                'api_version' => config('schier-api.clients.territory.version')
+            ]);
+        });
+
+        $this->app->bind('schier-api', function() {
+            return $this->app->make(SchierApiManager::class);
         });
     }
 
@@ -30,7 +43,7 @@ class SchierProductApiServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $configPath = __DIR__ . '/../config/product-api.php';
+        $configPath = __DIR__ . '/../config/schier-api.php';
         $this->publishes([$configPath => $this->getConfigPath()], 'config');
     }
 
@@ -41,7 +54,7 @@ class SchierProductApiServiceProvider extends ServiceProvider
      */
     protected function getConfigPath()
     {
-        return config_path('product-api.php');
+        return config_path('schier-api.php');
     }
 
     /**
@@ -61,6 +74,6 @@ class SchierProductApiServiceProvider extends ServiceProvider
      */
     protected function publishConfig($configPath)
     {
-        $this->publishes([$configPath => config_path('product-api.php')], 'config');
+        $this->publishes([$configPath => config_path('schier-api.php')], 'config');
     }
 }

@@ -12,7 +12,7 @@ class SchierProductApi
     public static $httpClient;
 
     /** @var string The base URL for the Schier API. */
-    public static $apiBase = 'https://api.schierproducts.com';
+    public static $apiBase = 'https://api.schierproducts.com/api';
 
     /** @var null|string The version of the Schier Products API to use for requests. */
     public static $apiVersion = null;

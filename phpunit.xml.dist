@@ -23,6 +23,7 @@
     </testsuite>
   </testsuites>
   <php>
-    <env name="SCHIER_PRODUCT_API_KEY" value="QM7Ug6cx9tDVzr5wVwXXKN8QttrwncK6" />
+    <env name="SCHIER_PRODUCT_API_KEY" value="1|NJaLPTl2WxnezqHztrrBx6sMZFjTuR4yNWhKJAXs" />
+    <env name="SCHIER_API_BASE" value="https://dev-schier-api.schierproducts.com/api" />
   </php>
 </phpunit>

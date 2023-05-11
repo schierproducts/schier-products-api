@@ -4,9 +4,8 @@
 namespace SchierProducts\SchierProductApi\Tests\ServiceTypes;
 
 
+use SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\Product;
 use SchierProducts\SchierProductApi\ItemCollection;
-use SchierProducts\SchierProductApi\Product;
-use SchierProducts\SchierProductApi\ProductResources;
 use SchierProducts\SchierProductApi\Tests\WithMockResponses;
 
 class ItemCollectionServiceTest  extends \PHPUnit\Framework\TestCase
@@ -23,7 +22,7 @@ class ItemCollectionServiceTest  extends \PHPUnit\Framework\TestCase
 
     /**
      * @test
-     * @covers \SchierProducts\SchierProductApi\Service\ProductService::all
+     * @covers \SchierProducts\SchierProductApi\ApiClients\ProductApi\Service\ProductService::all
      * @throws \SchierProducts\SchierProductApi\Exception\ApiErrorException
      */
     public function gets_all_available_collections()
@@ -39,7 +38,7 @@ class ItemCollectionServiceTest  extends \PHPUnit\Framework\TestCase
 
     /**
      * @test
-     * @covers \SchierProducts\SchierProductApi\Service\ProductService::all
+     * @covers \SchierProducts\SchierProductApi\ApiClients\ProductApi\Service\ProductService::all
      * @throws \SchierProducts\SchierProductApi\Exception\ApiErrorException
      */
     public function gets_collections_with_parameters_and_filters()
@@ -56,7 +55,7 @@ class ItemCollectionServiceTest  extends \PHPUnit\Framework\TestCase
 
     /**
      * @test
-     * @covers \SchierProducts\SchierProductApi\Service\ProductService::retrieve
+     * @covers \SchierProducts\SchierProductApi\ApiClients\ProductApi\Service\ProductService::retrieve
      * @throws \SchierProducts\SchierProductApi\Exception\ApiErrorException
      */
     public function gets_single_collection_by_key()
@@ -68,7 +67,7 @@ class ItemCollectionServiceTest  extends \PHPUnit\Framework\TestCase
         $this->assertEquals('GB-1', $response->name);
         $this->assertEquals('gb-1', $response->key);
         $this->assertEquals(2, $response->size);
-        $this->assertInstanceOf(ProductResources\ImageLibrary::class, $response->image);
+        $this->assertInstanceOf(\SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\ImageLibrary::class, $response->image);
         $this->assertCount(2, $response->items->allItems());
         $this->assertInstanceOf(Product::class, $response->items->first());
     }

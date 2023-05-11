@@ -136,9 +136,7 @@ class Utilities
         if ([] === $array) {
             return true;
         }
-//        if (array_key_exists('data', $array)) {
-//            dd(\array_keys($array['data']), \range(0, \count($array) - 1));
-//        }
+
         if (\array_keys($array) !== \range(0, \count($array) - 1)) {
             return false;
         }
@@ -156,7 +154,7 @@ class Utilities
      */
     public static function convertToInventoryItem($resp, $opts)
     {
-        $types = \SchierProducts\SchierProductApi\Utilities\Types::CLASS_MAP;
+        $types = \SchierProducts\SchierProductApi\Utilities\Types::getClassMap();
         if (self::isList($resp)) {
             $mapped = [];
             foreach ($resp as $i) {

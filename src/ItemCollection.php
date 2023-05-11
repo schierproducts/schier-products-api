@@ -3,7 +3,8 @@
 
 namespace SchierProducts\SchierProductApi;
 
-use SchierProducts\SchierProductApi\ProductResources\ImageLibrary;
+use SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\ImageLibrary;
+use SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\Product;
 
 /**
  * Class ItemCollection
