@@ -64,7 +64,7 @@ class SchierProductApiServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return ['product-api', ProductApiClient::class];
+        return ['schier-api', ProductApiClient::class, TerritoryApiClient::class];
     }
 
     /**
