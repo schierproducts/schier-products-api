@@ -17,7 +17,6 @@ use SchierProducts\SchierProductApi\Service;
  * @package SchierProducts\SchierProductApi
  * @property \SchierProducts\SchierProductApi\ApiClients\ProductApi\Service\ProductTypeService $productTypes
  * @property \SchierProducts\SchierProductApi\ApiClients\ProductApi\Service\ProductService $products
- * @property \SchierProducts\SchierProductApi\Service\ItemCollectionService $collections
  */
 class ProductApiClient extends Client\BaseSchierClient
 {
