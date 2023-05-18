@@ -18,7 +18,7 @@ class SchierProductApiServiceProvider extends ServiceProvider
         $this->app->singleton(ProductApiClient::class, function() {
             return new ProductApiClient([
                 'api_key' => config('schier-api.clients.product.key'),
-                'api_base' => config('schier-api.clients.product.base'),
+                'api_base' => $this->getBaseRoute(config('schier-api.clients.product.base')),
                 'api_version' => config('schier-api.clients.product.version')
             ]);
         });
@@ -26,7 +26,7 @@ class SchierProductApiServiceProvider extends ServiceProvider
         $this->app->singleton(TerritoryApiClient::class, function() {
             return new TerritoryApiClient([
                 'api_key' => config('schier-api.clients.territory.key'),
-                'api_base' => config('schier-api.clients.territory.base'),
+                'api_base' => $this->getBaseRoute(config('schier-api.clients.territory.base')),
                 'api_version' => config('schier-api.clients.territory.version')
             ]);
         });
@@ -71,9 +71,19 @@ class SchierProductApiServiceProvider extends ServiceProvider
      * Publish the config file
      *
      * @param  string $configPath
+     * @return void
      */
-    protected function publishConfig($configPath)
+    protected function publishConfig(string $configPath) : void
     {
         $this->publishes([$configPath => config_path('schier-api.php')], 'config');
+    }
+
+    /**
+     * @param string $route
+     * @return string
+     */
+    private function getBaseRoute(string $route) : string
+    {
+        return preg_replace("/\/api(?!\.)/", '', $route)."/api";
     }
 }
