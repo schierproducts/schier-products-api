@@ -45,12 +45,12 @@ return [
     'clients' => [
         'product' => [
             'key' => env('SCHIER_PRODUCT_API_KEY', env('SCHIER_API_KEY', null)),
-            'base' => env('SCHIER_PRODUCT_API_BASE', env('SCHIER_API_BASE', 'https://api.schierproducts.com/api')),
+            'base' => env('SCHIER_PRODUCT_API_BASE', env('SCHIER_API_BASE', 'https://api.schierproducts.com')),
             'version' => env('SCHIER_PRODUCT_API_VERSION', env('SCHIER_API_VERSION', '1')),
         ],
         'territory' => [
             'key' => env('SCHIER_TERRITORY_API_KEY', env('SCHIER_API_KEY', null)),
-            'base' => env('SCHIER_TERRITORY_API_BASE', env('SCHIER_API_BASE', 'https://api.schierproducts.com/api')),
+            'base' => env('SCHIER_TERRITORY_API_BASE', env('SCHIER_API_BASE', 'https://api.schierproducts.com')),
             'version' => env('SCHIER_TERRITORY_API_VERSION', env('SCHIER_API_VERSION', '1')),
         ],
     ],
