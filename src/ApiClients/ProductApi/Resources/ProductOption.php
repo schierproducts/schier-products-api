@@ -14,6 +14,8 @@ namespace SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources;
  * @property string|null $description Any other contextually relevant information associated with this option
  * @property ProductPrice $price The markup and pricing of the option
  * @property string $store_id The id of the option within the eCommerce platform
+ * @property boolean $pumpout_port Whether or not this option has a pumpout port
+ * @property array $connection_size The size of the connection for this option
  */
 class ProductOption extends ProductResource
 {
