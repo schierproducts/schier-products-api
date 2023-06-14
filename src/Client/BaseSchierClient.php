@@ -4,6 +4,7 @@
 namespace SchierProducts\SchierProductApi\Client;
 
 use \SchierProducts\SchierProductApi\Exception;
+use SchierProducts\SchierProductApi\Exception\AuthenticationException;
 use SchierProducts\SchierProductApi\HttpClient\RequestClient;
 use SchierProducts\SchierProductApi\Resources\InventoryItem;
 use SchierProducts\SchierProductApi\SchierProductApi;
@@ -19,7 +20,7 @@ class BaseSchierClient implements \SchierProducts\SchierProductApi\Client\Schier
 
     /** @var Utilities\RequestOptions */
     private $defaultOpts;
-    protected string $apiKey;
+    protected ?string $apiKey = null;
     protected string $apiBase;
     protected string $apiVersion;
 
@@ -30,7 +31,7 @@ class BaseSchierClient implements \SchierProducts\SchierProductApi\Client\Schier
      * @param array<string, mixed>|string $config the API key as a string, or an array containing
      *   the client configuration settings
      */
-    public function __construct($config = [])
+    public function __construct(array $config = [])
     {
         if (\is_string($config)) {
             $config = ['api_key' => $config];
@@ -69,7 +70,7 @@ class BaseSchierClient implements \SchierProducts\SchierProductApi\Client\Schier
      * @return InventoryItem the object returned by Stripe's API
      * @throws Exception\AuthenticationException|Exception\ApiErrorException
      */
-    public function request($method, $path, $params, $opts)
+    public function request($method, $path, $params, $opts): InventoryItem
     {
         $opts = $this->defaultOpts->merge($opts, true);
         $baseUrl = $opts->apiBase ?: $this->getApiBase();
@@ -109,10 +110,15 @@ class BaseSchierClient implements \SchierProducts\SchierProductApi\Client\Schier
 
     /**
      * @inheritDoc
+     * @throws AuthenticationException
      */
-    public function getApiKey()
+    public function getApiKey() : string
     {
-        return $this->apiKey ?? $this->config['api_key'];
+        $apiKey = $this->apiKey ?? $this->config['api_key'];
+        if (!$apiKey) {
+            self::throwNoKeyError();
+        }
+        return $apiKey;
     }
 
     /**
@@ -124,25 +130,15 @@ class BaseSchierClient implements \SchierProducts\SchierProductApi\Client\Schier
     }
 
     /**
-     * @param \SchierProducts\SchierProductApi\Utilities\RequestOptions $options
-     *
-     * @throws Exception\AuthenticationException
-     *
-     * @return string
+     * @throws AuthenticationException
      */
-    private function apiKeyForRequest($options)
+    protected static function throwNoKeyError() : void
     {
-        $apiKey = $options->apiKey ?: $this->getApiKey();
+        $msg = 'No API key provided. Set your API key when constructing the '
+            . 'SchierClient instance, or provide it on a per-request basis '
+            . 'using the `api_key` key in the $options argument.';
 
-        if (null === $apiKey) {
-            $msg = 'No API key provided. Set your API key when constructing the '
-                . 'SchierClient instance, or provide it on a per-request basis '
-                . 'using the `api_key` key in the $options argument.';
-
-            throw new Exception\AuthenticationException($msg);
-        }
-
-        return $apiKey;
+        throw new Exception\AuthenticationException($msg);
     }
 
     /**
