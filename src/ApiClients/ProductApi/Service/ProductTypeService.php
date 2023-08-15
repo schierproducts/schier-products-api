@@ -32,7 +32,7 @@ class ProductTypeService extends \SchierProducts\SchierProductApi\Service\ApiSer
      */
     public function retrieve($key, $params = null, $opts = null)
     {
-        return $this->request('get', $this->buildPath('/product-types/%s', $key), $params, $opts);
+        return $this->request('get', $this->buildPath(self::PATH.'/%s', $key), $params, $opts);
     }
 
     /**

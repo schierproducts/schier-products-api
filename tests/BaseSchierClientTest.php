@@ -17,7 +17,7 @@ class BaseSchierClientTest extends \PHPUnit\Framework\TestCase
         $key = "SAMPLE_KEY";
         $client = new \SchierProducts\SchierProductApi\Client\BaseSchierClient($key);
         $this->assertEquals($client->getApiKey(), $key);
-        $this->assertEquals($client->getApiBase(), 'https://api.schierproducts.com');
+        $this->assertEquals($client->getApiBase(), 'https://api.schierproducts.com/api');
     }
 
     /**
@@ -37,7 +37,7 @@ class BaseSchierClientTest extends \PHPUnit\Framework\TestCase
     public function configuration_validation_catches_incorrect_api_key()
     {
         $this->expectException('\SchierProducts\SchierProductApi\Exception\InvalidArgumentException');
-        $this->expectErrorMessage('api_key cannot contain whitespace');
+        $this->expectExceptionMessage('api_key cannot contain whitespace');
 
         $key = "SAMPLE KEY";
         $client = new \SchierProducts\SchierProductApi\Client\BaseSchierClient($key);
@@ -50,7 +50,7 @@ class BaseSchierClientTest extends \PHPUnit\Framework\TestCase
     public function configuration_validation_catches_extra_keys()
     {
         $this->expectException('\SchierProducts\SchierProductApi\Exception\InvalidArgumentException');
-        $this->expectErrorMessage('Found unknown key(s) in configuration array: \'author\'');
+        $this->expectExceptionMessage('Found unknown key(s) in configuration array: \'author\'');
 
         $client = new \SchierProducts\SchierProductApi\Client\BaseSchierClient([
             'author' => 'Doug Niccum'

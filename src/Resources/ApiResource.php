@@ -6,7 +6,7 @@ namespace SchierProducts\SchierProductApi\Resources;
 use SchierProducts\SchierProductApi\ApiRequest;
 use \SchierProducts\SchierProductApi\Exception;
 use \SchierProducts\SchierProductApi\Operations;
-use SchierProducts\SchierProductApi\SchierProductApi;
+use SchierProducts\SchierProductApi\SchierApiManager;
 use \SchierProducts\SchierProductApi\Utilities;
 
 /**
@@ -70,7 +70,7 @@ class ApiResource extends InventoryItem
      */
     public static function baseUrl()
     {
-        return SchierProductApi::$apiBase;
+        return SchierApiManager::$apiBase;
     }
 
     /**

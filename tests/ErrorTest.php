@@ -40,8 +40,8 @@ class ErrorTest extends \PHPUnit\Framework\TestCase
         } catch (Exception\AuthenticationException $exception) {
             $message = $exception->getMessage();
 
-            $this->assertEquals(401, $exception->httpStatus);
-            $this->assertStringContainsString("It appears that your API key is not correct.", $message);
+            $this->assertEquals(403, $exception->httpStatus);
+            $this->assertStringContainsString("No API key provided.", $message);
         }
     }
 

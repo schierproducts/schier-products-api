@@ -137,7 +137,7 @@ class RequestOptions
         $message = 'The second argument to Schier Product API method calls is an '
             . 'optional per-request apiKey, which must be a string, or '
             . 'per-request options, which must be an array. (HINT: you can set '
-            . 'a global apiKey by "SchierProductApi::setApiKey(<apiKey>)")';
+            . 'a global apiKey by "SchierApiManager::setApiKey(<apiKey>)")';
 
         throw new Exception\InvalidArgumentException($message);
     }
