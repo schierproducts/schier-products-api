@@ -6,7 +6,7 @@ namespace SchierProducts\SchierProductApi\Client;
 use \SchierProducts\SchierProductApi\Exception;
 use SchierProducts\SchierProductApi\HttpClient\RequestClient;
 use SchierProducts\SchierProductApi\Resources\InventoryItem;
-use SchierProducts\SchierProductApi\SchierProductApi;
+use SchierProducts\SchierProductApi\SchierApiManager;
 use \SchierProducts\SchierProductApi\Utilities;
 
 class BaseSchierClient implements \SchierProducts\SchierProductApi\Client\SchierClientInterface
@@ -49,9 +49,9 @@ class BaseSchierClient implements \SchierProducts\SchierProductApi\Client\Schier
 
         ////
         if ($this->config['api_key']) {
-            SchierProductApi::setApiKey($this->config['api_key']);
+            SchierApiManager::setApiKey($this->config['api_key']);
         }
-        SchierProductApi::setApiBase($this->config['api_base']);
+        SchierApiManager::setApiBase($this->config['api_base']);
 
         $this->defaultOpts = Utilities\RequestOptions::parse([
             'api_version' => $config['api_version'],
@@ -73,7 +73,7 @@ class BaseSchierClient implements \SchierProducts\SchierProductApi\Client\Schier
     {
         $opts = $this->defaultOpts->merge($opts, true);
         $baseUrl = $opts->apiBase ?: $this->getApiBase();
-        $httpFactory = SchierProductApi::getHttpClient();
+        $httpFactory = SchierApiManager::getHttpClient();
 
         $request = new \SchierProducts\SchierProductApi\ApiRequest($this->getApiKey(), $baseUrl);
         $request->setHttpClient($httpFactory);

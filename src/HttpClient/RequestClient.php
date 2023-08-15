@@ -5,6 +5,7 @@ namespace SchierProducts\SchierProductApi\HttpClient;
 
 
 use SchierProducts\SchierProductApi\Exception;
+use SchierProducts\SchierProductApi\SchierApiManager;
 use SchierProducts\SchierProductApi\SchierProductApi;
 use SchierProducts\SchierProductApi\Utilities;
 use SchierProducts\SchierProductApi\Utilities\RequestOptions;
@@ -84,7 +85,7 @@ class RequestClient implements ClientInterface
 
         $response = $this->factory
             ->withHeaders($headers)
-            ->withToken(SchierProductApi::getApiKey())
+            ->withToken(SchierApiManager::getApiKey())
             ->acceptJson()
             ->send($method, $absUrl);
 

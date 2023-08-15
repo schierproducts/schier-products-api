@@ -8,6 +8,7 @@ use SchierProducts\SchierProductApi\ApiResource;
 use SchierProducts\SchierProductApi\Collection;
 use SchierProducts\SchierProductApi\Exception;
 use SchierProducts\SchierProductApi\Operations;
+use SchierProducts\SchierProductApi\SchierApiManager;
 use SchierProducts\SchierProductApi\SchierProductApi;
 use SchierProducts\SchierProductApi\Utilities\RequestOptions;
 use SchierProducts\SchierProductApi\Utilities\Utilities;
@@ -30,12 +31,12 @@ class ProductType extends ApiResource
     use Operations\All;
     use Operations\Retrieve;
 
-    public function instanceUrl()
+    public function instanceUrl(): string
     {
         if ($this->key === null || null === $this->toArray()['key']) {
-            return '/product-types';
+            return '/product/product-types';
         } else if ((property_exists($this, 'key') && $this->key !== null) || (array_key_exists('key', $this->toArray()) && $this->toArray()['key'] !== null)) {
-            return '/product-types/'.$this->toArray()['key'];
+            return '/product/product-types/'.$this->toArray()['key'];
         }
 
         return parent::instanceUrl();
@@ -69,7 +70,7 @@ class ProductType extends ApiResource
     public function products($params = null)
     {
         $url = $this->instanceUrl().'/products';
-        $response = $this->_request('get', $url, $params, $this->_opts, SchierProductApi::getHttpClient());
+        $response = $this->_request('get', $url, $params, $this->_opts, SchierApiManager::getHttpClient());
         return Utilities::convertToInventoryItem($response, []);
     }
 }

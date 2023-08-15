@@ -16,6 +16,8 @@ class ProductTypeServiceTest  extends \PHPUnit\Framework\TestCase
      */
     public function setUp(): void
     {
+        parent::setUp();
+
         $this->useClient();
     }
 
@@ -65,8 +67,8 @@ class ProductTypeServiceTest  extends \PHPUnit\Framework\TestCase
          */
         $firstItem = $response->first();
         $this->assertEquals('product', $firstItem->object);
-        $this->assertEquals('/products/8064-XXX-01', $firstItem->url);
-        $this->assertEquals('SV24', $firstItem->name);
+        $this->assertEquals('/products/8065-001-01', $firstItem->url);
+        $this->assertEquals('SV10', $firstItem->name);
     }
 
     /**

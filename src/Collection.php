@@ -26,7 +26,7 @@ class Collection extends InventoryItem implements \Countable, \IteratorAggregate
      */
     public static function baseUrl()
     {
-        return SchierProductApi\SchierProductApi::$apiBase;
+        return SchierProductApi\SchierApiManager::$apiBase;
     }
 
     /**

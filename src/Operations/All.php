@@ -3,7 +3,7 @@
 
 namespace SchierProducts\SchierProductApi\Operations;
 
-use SchierProducts\SchierProductApi\SchierProductApi;
+use SchierProducts\SchierProductApi\SchierApiManager;
 use SchierProducts\SchierProductApi\Utilities\Utilities;
 
 /**
@@ -25,7 +25,7 @@ trait All
     {
         self::_validateParams($params);
         $url = static::classUrl();
-        $httpFactory = SchierProductApi::getHttpClient();
+        $httpFactory = SchierApiManager::getHttpClient();
 
         list($response, $opts) = static::_staticRequest('get', $url, $params, $opts, $httpFactory);
         $obj = Utilities::convertToInventoryItem($response->json, $opts);
