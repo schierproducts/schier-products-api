@@ -46,7 +46,6 @@ class UtilitiesTest extends \PHPUnit\Framework\TestCase
     {
         $client = new ProductApiClient([
             'api_key' => "Sample_Key",
-            'api_base' => "http://product-api.test"
         ]);
 
         $factory = self::factory();

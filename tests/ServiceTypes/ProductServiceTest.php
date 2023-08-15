@@ -224,4 +224,17 @@ class ProductServiceTest  extends \PHPUnit\Framework\TestCase
             $this->assertInstanceOf(\SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\Price::class, $option->price->wholesale);
         }
     }
+
+    /**
+     * @test
+     * @testdox All SI-75 associated variants.
+     * @covers \SchierProducts\SchierProductApi\ApiClients\ProductApi\Service\ProductService::variants
+     * @covers \SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\ProductResource
+     * @throws \SchierProducts\SchierProductApi\Exception\ApiErrorException
+     */
+    public function all_variants_based_on_part_number()
+    {
+        $response = $this->client->products->variants('4055-007-02');
+        dd($response);
+    }
 }

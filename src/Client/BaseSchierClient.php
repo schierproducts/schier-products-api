@@ -12,14 +12,14 @@ use \SchierProducts\SchierProductApi\Utilities;
 class BaseSchierClient implements \SchierProducts\SchierProductApi\Client\SchierClientInterface
 {
     /** @var string default base URL for the product API */
-    const DEFAULT_API_BASE = 'https://api.schierproducts.com';
+    const DEFAULT_API_BASE = 'https://api.schierproducts.com/api';
 
     /** @var array<string, mixed> */
     private $config;
 
     /** @var Utilities\RequestOptions */
     private $defaultOpts;
-    protected string $apiKey;
+    protected ?string $apiKey;
     protected string $apiBase;
     protected string $apiVersion;
 
@@ -152,7 +152,7 @@ class BaseSchierClient implements \SchierProducts\SchierProductApi\Client\Schier
     {
         return [
             'api_key' => null,
-            'api_version' => null,
+            'api_version' => '1',
             'api_base' => self::DEFAULT_API_BASE,
             'factory' => new \Illuminate\Http\Client\Factory
         ];

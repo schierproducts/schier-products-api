@@ -15,9 +15,9 @@ class ApiRequest
     private ?string $_apiKey;
 
     /**
-     * @var string
+     * @var null|string
      */
-    private $_apiBase;
+    private ?string $_apiBase;
 
 
 
@@ -33,11 +33,11 @@ class ApiRequest
      * @param string|null $apiKey
      * @param string|null $apiBase
      */
-    public function __construct(string $apiKey, string $apiBase, string $apiVersion = '1')
+    public function __construct(?string $apiKey = null, ?string $apiBase = null, string $apiVersion = '1')
     {
         $this->_apiKey = $apiKey;
+        $this->_apiBase = $apiBase ?? SchierProductApi::$apiBase;
         $this->_apiVersion = $apiVersion;
-        $this->_apiBase = $apiBase;
     }
 
     /**

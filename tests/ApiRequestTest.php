@@ -25,7 +25,8 @@ class ApiRequestTest extends \PHPUnit\Framework\TestCase
         $method = "what";
 
         $this->expectException(Exception\UnexpectedValueException::class);
-        $this->expectDeprecationMessage("Unrecognized method ".$method);
+        $this->expectException(\SchierProducts\SchierProductApi\Exception\UnexpectedValueException::class);
+        $this->expectExceptionMessage("Unrecognized method ".$method);
 
         $instance->request($method, $url);
     }

@@ -16,9 +16,9 @@ trait WithProductTypeResponse
     {
         $factory = new \Illuminate\Http\Client\Factory();
         return $factory->fake([
-            SchierProductApi::$apiBase.'/product-types' => \Illuminate\Http\Client\Factory::response(self::productTypeResponse()),
-            SchierProductApi::$apiBase.'/product-types/sampling_port' => \Illuminate\Http\Client\Factory::response(self::productTypeSingleResponse()),
-            SchierProductApi::$apiBase.'/product-types/sampling_port/products' => \Illuminate\Http\Client\Factory::response(self::productTypeProductResponse()),
+            SchierProductApi::$apiBase.'/product/product-types' => \Illuminate\Http\Client\Factory::response(self::productTypeResponse()),
+            SchierProductApi::$apiBase.'/product/product-types/sampling_port' => \Illuminate\Http\Client\Factory::response(self::productTypeSingleResponse()),
+            SchierProductApi::$apiBase.'/product/product-types/sampling_port/products' => \Illuminate\Http\Client\Factory::response(self::productTypeProductResponse()),
         ]);
     }
 
