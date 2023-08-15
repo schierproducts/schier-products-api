@@ -16,6 +16,13 @@ class LaravelTest extends TestCase
 {
     use WithMockResponses;
 
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->useClient();
+    }
+
     /**
      * @inheritdoc
      */
@@ -29,7 +36,7 @@ class LaravelTest extends TestCase
     /**
      * @inheritdoc
      */
-    protected function getPackageAliases($app)
+    protected function getPackageAliases($app): array
     {
         return [
             'SchierApi' => SchierApi::class,
@@ -47,8 +54,8 @@ class LaravelTest extends TestCase
 
         $this->assertNotNull($apiKey);
         $this->assertNotNull($apiBase);
-        $this->assertEquals(config('product-api.key'), $apiKey);
-        $this->assertEquals(config('product-api.base'), $apiBase);
+        $this->assertEquals('SAMPLE_KEY', $apiKey);
+        $this->assertEquals('https://api.schierproducts.com/api', $apiBase);
     }
 
     /**
@@ -60,8 +67,12 @@ class LaravelTest extends TestCase
     {
         $formattedResponse = Utilities::convertToInventoryItem((array) json_decode($this->productTypeResponse()), []);
 
-        SchierApi::shouldReceive('productTypes')
+        SchierApi::shouldReceive('product')
             ->once()
+            ->andReturnUsing(function () {
+                return $this->client;
+            })
+            ->shouldReceive('productTypes')
             ->andReturn($formattedResponse);
 
         $response = SchierApi::product()->productTypes();
@@ -78,9 +89,13 @@ class LaravelTest extends TestCase
     {
         $formattedResponse = Utilities::convertToInventoryItem((array) json_decode($this->productTypeSingleResponse()), []);
 
-        SchierApi::shouldReceive('productTypes')
+        SchierApi::shouldReceive('product')
             ->once()
-            ->withArgs([ 'sampling_port' ])
+            ->andReturnUsing(function () {
+                return $this->client;
+            })
+            ->shouldReceive('productTypes')
+            ->with('sampling_port')
             ->andReturn($formattedResponse);
 
         $response = SchierApi::product()->productTypes('sampling_port');
@@ -97,11 +112,15 @@ class LaravelTest extends TestCase
     {
         $formattedResponse = Utilities::convertToInventoryItem((array) json_decode($this->allProductsResponse()), []);
 
-        SchierApi::shouldReceive('products')
+        SchierApi::shouldReceive('product')
             ->once()
+            ->andReturnUsing(function () {
+                return $this->client;
+            })
+            ->shouldReceive('products')
             ->andReturn($formattedResponse);
 
-        $response = SchierApi::product->products();
+        $response = SchierApi::product()->products();
 
         $this->assertInstanceOf(Collection::class, $response);
     }
@@ -115,9 +134,13 @@ class LaravelTest extends TestCase
     {
         $formattedResponse = Utilities::convertToInventoryItem((array) json_decode($this->productGb1Response()), []);
 
-        SchierApi::shouldReceive('products')
+        SchierApi::shouldReceive('product')
             ->once()
-            ->withArgs([ '4060-001-04' ])
+            ->andReturnUsing(function () {
+                return $this->client;
+            })
+            ->shouldReceive('products')
+            ->with('4060-001-04')
             ->andReturn($formattedResponse);
 
         $response = SchierApi::product()->products('4060-001-04');

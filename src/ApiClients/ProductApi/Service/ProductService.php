@@ -23,7 +23,7 @@ class ProductService extends ApiService
      *
      * @throws Exception\ApiErrorException if the request fails
      */
-    public function all(string $params = null, null|array|RequestOptions $opts = null) : \SchierProducts\SchierProductApi\Collection
+    public function all(?array $params = null, null|array|RequestOptions $opts = null) : \SchierProducts\SchierProductApi\Collection
     {
         return $this->requestCollection('get', self::PATH, $params, $opts);
     }

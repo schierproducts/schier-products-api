@@ -7,8 +7,12 @@ use SchierProducts\SchierProductApi\ApiClients\TerritoryApi\Client\TerritoryApiC
 
 class SchierApiManager
 {
+    use ManagesApiSettings;
+
     protected ProductApiClient $productApi;
+
     protected TerritoryApiClient $territoryApi;
+
     public function __construct(ProductApiClient $productApi, TerritoryApiClient $territoryApi)
     {
         $this->productApi = $productApi;
