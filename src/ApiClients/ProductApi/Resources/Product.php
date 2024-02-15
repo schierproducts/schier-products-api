@@ -19,6 +19,8 @@ use SchierProducts\SchierProductApi\Operations;
  * @property DimensionSet $base_dimensions The dimensions of the product
  * @property DimensionSet $shipping_dimensions The shipping dimensions of th product
  * @property int $manway_access_ports The number of "manway" access ports that require a cover
+ * @property int[] $units_in_series The number of units in a series
+ * @property InstallationDimensionSet $installation_dimensions The dimensions of the product for installation
  * @property Certification[] $certifications List of associated certifications
  * @property DocumentLibrary $spec_sheet The product spec sheet in various formats
  * @property DocumentLibrary $installation_guide The product installation guide in various formats
