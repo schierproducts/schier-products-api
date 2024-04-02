@@ -20,7 +20,7 @@ abstract class ApiResource extends InventoryItem
      */
     public static function baseUrl()
     {
-        return SchierProductApi::$apiBase;
+        return SchierApiManager::$apiBase;
     }
 
     /**

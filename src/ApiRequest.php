@@ -15,9 +15,9 @@ class ApiRequest
     private ?string $_apiKey;
 
     /**
-     * @var string
+     * @var null|string
      */
-    private $_apiBase;
+    private ?string $_apiBase;
 
 
 
@@ -33,11 +33,11 @@ class ApiRequest
      * @param string|null $apiKey
      * @param string|null $apiBase
      */
-    public function __construct(string $apiKey, string $apiBase, string $apiVersion = '1')
+    public function __construct(?string $apiKey = null, ?string $apiBase = null, string $apiVersion = '1')
     {
         $this->_apiKey = $apiKey;
+        $this->_apiBase = $apiBase ?? SchierApiManager::$apiBase;
         $this->_apiVersion = $apiVersion;
-        $this->_apiBase = $apiBase;
     }
 
     /**
@@ -81,7 +81,7 @@ class ApiRequest
 
         if (!$currentApiKey) {
             $msg = 'No API key provided.  (HINT: set your API key using '
-                . '"SchierProductApi::setApiKey(<API-KEY>)".  You can generate API keys from '
+                . '"SchierApiManager::setApiKey(<API-KEY>)".  You can generate API keys from '
                 . 'the Schier Product Api web interface.  See https://api.schierproducts.com for '
                 . 'details, or email developers@schierproducts.com if you have any questions.';
 

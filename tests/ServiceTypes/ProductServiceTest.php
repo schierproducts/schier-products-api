@@ -4,7 +4,10 @@
 namespace SchierProducts\SchierProductApi\Tests\ServiceTypes;
 
 
+use SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\Product;
+use SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\ProductOptionAttribute;
 use SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\SimpleProduct;
+use SchierProducts\SchierProductApi\Collection;
 use SchierProducts\SchierProductApi\Tests\WithMockResponses;
 
 class ProductServiceTest  extends \PHPUnit\Framework\TestCase
@@ -16,6 +19,8 @@ class ProductServiceTest  extends \PHPUnit\Framework\TestCase
      */
     public function setUp(): void
     {
+        parent::setUp();
+
         $this->useClient();
     }
 
@@ -29,7 +34,7 @@ class ProductServiceTest  extends \PHPUnit\Framework\TestCase
         $response = $this->client->products->all();
 
         $this->assertEquals('list', $response->object);
-        $this->assertEquals('/products', $response->url);
+        $this->assertEquals('/products?offset=0&limit=25', $response->url);
         $this->assertNotCount(0, $response->allItems());
     }
 
@@ -56,7 +61,8 @@ class ProductServiceTest  extends \PHPUnit\Framework\TestCase
         $this->assertEquals('/products/8030-003-01', $response->url);
         $this->assertEquals('CC1', $response->name);
         $this->assertEquals('CC1', $response->short_name);
-        $this->assertEquals('Clamping Collar', $response->type);
+        $this->assertIsArray($response->types);
+        $this->assertTrue(in_array('Clamping Collar', $response->types));
         $this->assertEquals('8030-003-01', $response->part_number);
         $this->assertEquals('129', $response->store_id);
         $this->assertEquals('Clamping collar for units with 21" covers, recessed and suspended.', $response->short_description);
@@ -65,9 +71,6 @@ class ProductServiceTest  extends \PHPUnit\Framework\TestCase
         $this->assertInstanceOf(\SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\ProductImageLibrary::class, $response->images);
         $this->assertInstanceOf(\SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\ImageLibrary::class, $response->images->primary);
         $this->assertInstanceOf(\SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\ImageLibrary::class, $response->images->dimension);
-
-        // Processing validation
-        $this->assertInstanceOf(\SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\AwarenessProduct::class, $response->processing);
 
         // Dimensions validation
         $this->assertInstanceOf(\SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\DimensionSet::class, $response->base_dimensions);
@@ -86,7 +89,7 @@ class ProductServiceTest  extends \PHPUnit\Framework\TestCase
 
         // Price validation
         $this->assertInstanceOf(\SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\ProductPrice::class, $response->price);
-        $this->assertEquals('438.00', $response->price->list);
+        $this->assertEquals('474.00', $response->price->list);
         $this->assertInstanceOf(\SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\Price::class, $response->price->wholesale);
         $this->assertInstanceOf(\SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\Price::class, $response->price->retail);
         $this->assertIsFloat($response->price->wholesale->multiplier);
@@ -123,9 +126,9 @@ class ProductServiceTest  extends \PHPUnit\Framework\TestCase
         $this->assertInstanceOf(\SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\InstallationOptions::class, $response->installation_options);
         $this->assertInstanceOf(\SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\InstallationOptionsLocation::class, $response->installation_options->location);
         $this->assertIsBool($response->installation_options->location->indoors);
-        $this->assertIsBool($response->installation_options->location->indoors_buried);
+        $this->assertIsBool($response->installation_options->location->above_grade);
         $this->assertIsBool($response->installation_options->location->outdoors);
-        $this->assertIsBool($response->installation_options->location->outdoors_buried);
+        $this->assertIsBool($response->installation_options->location->below_grade);
         $this->assertIsBool($response->installation_options->location->other);
         $this->assertIsString($response->installation_options->location_as_text);
         $this->assertIsBool($response->installation_options->traffic_area);
@@ -195,7 +198,7 @@ class ProductServiceTest  extends \PHPUnit\Framework\TestCase
     public function product_with_no_customizations_returns_404()
     {
         $this->expectException(\SchierProducts\SchierProductApi\Exception\InvalidRequestException::class);
-        $this->expectErrorMessage('This product cannot be found.');
+        $this->expectExceptionMessage('This product cannot be found.');
 
         $this->client->products->retrieve('4055-XXX-02');
     }
@@ -220,8 +223,24 @@ class ProductServiceTest  extends \PHPUnit\Framework\TestCase
             $this->assertInstanceOf(\SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\ProductOption::class, $option);
             $this->assertIsInt($option->id);
             $this->assertIsString($option->name);
-            $this->assertInstanceOf(\SchierProducts\SchierProductApi\Resources\InventoryItem::class, $option->price);
-            $this->assertInstanceOf(\SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\Price::class, $option->price->wholesale);
+            $this->assertIsArray($option->attributes);
         }
+    }
+
+    /**
+     * @test
+     * @testdox All SI-75 associated variants.
+     * @covers \SchierProducts\SchierProductApi\ApiClients\ProductApi\Service\ProductService::variants
+     * @covers \SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\ProductResource
+     * @throws \SchierProducts\SchierProductApi\Exception\ApiErrorException
+     */
+    public function all_variants_based_on_part_number()
+    {
+        $response = $this->client->products->variants('5045-XXX-01');
+        $this->assertInstanceOf(Collection::class, $response);
+        $this->assertCount(3, $response->toArray());
+        $this->assertInstanceOf(Product::class, $response->allItems()[0]);
+        $this->assertInstanceOf(Product::class, $response->allItems()[1]);
+        $this->assertInstanceOf(Product::class, $response->allItems()[2]);
     }
 }

@@ -5,6 +5,7 @@ namespace SchierProducts\SchierProductApi\Tests;
 
 
 use SchierProducts\SchierProductApi\ApiClients\ProductApi\ProductApiClient;
+use SchierProducts\SchierProductApi\SchierApiManager;
 use SchierProducts\SchierProductApi\SchierProductApi;
 use SchierProducts\SchierProductApi\Utilities\Utilities;
 
@@ -12,6 +13,7 @@ class UtilitiesTest extends \PHPUnit\Framework\TestCase
 {
     use WithFaker;
     use WithProductTypeResponse;
+
 
     /**
      * @test
@@ -46,13 +48,12 @@ class UtilitiesTest extends \PHPUnit\Framework\TestCase
     {
         $client = new ProductApiClient([
             'api_key' => "Sample_Key",
-            'api_base' => "http://product-api.test"
         ]);
 
         $factory = self::factory();
-        SchierProductApi::setHttpClient($factory);
+        SchierApiManager::setHttpClient($factory);
 
-        $response = $client->productTypes->all();
+        $response = $client->productTypes();
 
         $this->assertEquals('list', $response->object);
         $this->assertEquals('/product-types', $response->url);

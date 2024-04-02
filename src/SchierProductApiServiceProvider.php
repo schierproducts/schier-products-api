@@ -10,7 +10,7 @@ use SchierProducts\SchierProductApi\ApiClients\TerritoryApi\Client\TerritoryApiC
 
 class SchierProductApiServiceProvider extends ServiceProvider
 {
-    public function register()
+    public function register(): void
     {
         $configPath = __DIR__ . '/../config/schier-api.php';
         $this->mergeConfigFrom($configPath, 'schier-api');

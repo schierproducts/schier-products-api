@@ -5,6 +5,7 @@ namespace SchierProducts\SchierProductApi\ApiClients\ProductApi\Service;
 
 use SchierProducts\SchierProductApi\Exception;
 use SchierProducts\SchierProductApi\Service\ApiService;
+use SchierProducts\SchierProductApi\Utilities\RequestOptions;
 
 /**
  * Class ProductService
@@ -18,13 +19,11 @@ class ProductService extends ApiService
      * Returns a list of all of the available, active products. The products are returned sorted by name.
      *
      * @param null|array $params
-     * @param null|array|\SchierProducts\SchierProductApi\Utilities\RequestOptions $opts
+     * @param null|array|RequestOptions $opts
      *
      * @throws Exception\ApiErrorException if the request fails
-     *
-     * @return \SchierProducts\SchierProductApi\Collection
      */
-    public function all($params = null, $opts = null)
+    public function all(?array $params = null, null|array|RequestOptions $opts = null) : \SchierProducts\SchierProductApi\Collection
     {
         return $this->requestCollection('get', self::PATH, $params, $opts);
     }
@@ -34,12 +33,23 @@ class ProductService extends ApiService
      *
      * @param string $partNumber The product's part number
      * @param null|array $params
-     * @param null|array|\SchierProducts\SchierProductApi\Utilities\RequestOptions $opts
+     * @param null|array|RequestOptions $opts
      * @throws Exception\ApiErrorException if the request fails
-     * @return \SchierProducts\SchierProductApi\Resources\InventoryItem|\SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\Product
      */
-    public function retrieve($partNumber, $params = null, $opts = null)
+    public function retrieve(string $partNumber, ?array $params = null, null|array|RequestOptions $opts = null) : \SchierProducts\SchierProductApi\Resources\InventoryItem|\SchierProducts\SchierProductApi\ApiClients\ProductApi\Resources\Product
     {
         return $this->request('get', $this->buildPath(self::PATH. '/%s', urlencode($partNumber)), $params, $opts);
+    }
+
+    /**
+     * Retrieves all variants (if available) based on the submitted part number
+     *
+     * @param string $partNumber The product's part number
+     * @param null|array|RequestOptions $opts
+     * @throws Exception\ApiErrorException if the request fails
+     */
+    public function variants(string $partNumber, null|array|RequestOptions $opts = null) : \SchierProducts\SchierProductApi\Collection
+    {
+        return $this->requestCollection('get', $this->buildPath(self::PATH. '/%s/variants', urlencode($partNumber)), [], $opts);
     }
 }

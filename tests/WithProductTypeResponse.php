@@ -4,7 +4,7 @@
 namespace SchierProducts\SchierProductApi\Tests;
 
 
-use SchierProducts\SchierProductApi\SchierProductApi;
+use SchierProducts\SchierProductApi\SchierApiManager;
 
 trait WithProductTypeResponse
 {
@@ -16,9 +16,9 @@ trait WithProductTypeResponse
     {
         $factory = new \Illuminate\Http\Client\Factory();
         return $factory->fake([
-            SchierProductApi::$apiBase.'/product-types' => \Illuminate\Http\Client\Factory::response(self::productTypeResponse()),
-            SchierProductApi::$apiBase.'/product-types/sampling_port' => \Illuminate\Http\Client\Factory::response(self::productTypeSingleResponse()),
-            SchierProductApi::$apiBase.'/product-types/sampling_port/products' => \Illuminate\Http\Client\Factory::response(self::productTypeProductResponse()),
+            SchierApiManager::$apiBase.'/product/product-types' => \Illuminate\Http\Client\Factory::response(self::productTypeResponse()),
+            SchierApiManager::$apiBase.'/product/product-types/sampling_port' => \Illuminate\Http\Client\Factory::response(self::productTypeSingleResponse()),
+            SchierApiManager::$apiBase.'/product/product-types/sampling_port/products' => \Illuminate\Http\Client\Factory::response(self::productTypeProductResponse()),
         ]);
     }
 
