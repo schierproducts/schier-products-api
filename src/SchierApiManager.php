@@ -2,29 +2,50 @@
 
 namespace SchierProducts\SchierProductApi;
 
+use SchierProducts\SchierProductApi\ApiClients\AverageUnitVolumeApi\Client\AverageUnitVolumeClient;
+use SchierProducts\SchierProductApi\ApiClients\GreaseApi\Client\GreaseApiClient;
 use SchierProducts\SchierProductApi\ApiClients\ProductApi\ProductApiClient;
 use SchierProducts\SchierProductApi\ApiClients\TerritoryApi\Client\TerritoryApiClient;
 
+/**
+ * Class SchierApiManager
+ * @package SchierProducts\SchierProductApi
+ * @property ProductApiClient $productApi
+ * @property TerritoryApiClient $territoryApi
+ * @property GreaseApiClient $greaseApi
+ * @property AverageUnitVolumeClient $averageUnitVolumeApi
+ */
 class SchierApiManager
 {
     use ManagesApiSettings;
 
-    protected ProductApiClient $productApi;
 
-    protected TerritoryApiClient $territoryApi;
-
-    public function __construct(ProductApiClient $productApi, TerritoryApiClient $territoryApi)
+    public function __construct(
+        protected ProductApiClient        $productApi,
+        protected TerritoryApiClient      $territoryApi,
+        protected GreaseApiClient         $greaseApi,
+        protected AverageUnitVolumeClient $averageUnitVolumeApi
+    )
     {
-        $this->productApi = $productApi;
-        $this->territoryApi = $territoryApi;
     }
-    public function product() : ProductApiClient
+
+    public function product(): ProductApiClient
     {
         return $this->productApi;
     }
 
-    public function territory() : TerritoryApiClient
+    public function territory(): TerritoryApiClient
     {
         return $this->territoryApi;
+    }
+
+    public function grease(): GreaseApiClient
+    {
+        return $this->greaseApi;
+    }
+
+    public function averageUnitVolume(): AverageUnitVolumeClient
+    {
+        return $this->averageUnitVolumeApi;
     }
 }

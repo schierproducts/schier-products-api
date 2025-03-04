@@ -5,6 +5,8 @@ namespace SchierProducts\SchierProductApi;
 
 
 use Illuminate\Support\ServiceProvider;
+use SchierProducts\SchierProductApi\ApiClients\AverageUnitVolumeApi\Client\AverageUnitVolumeClient;
+use SchierProducts\SchierProductApi\ApiClients\GreaseApi\Client\GreaseApiClient;
 use SchierProducts\SchierProductApi\ApiClients\ProductApi\ProductApiClient;
 use SchierProducts\SchierProductApi\ApiClients\TerritoryApi\Client\TerritoryApiClient;
 
@@ -28,6 +30,22 @@ class SchierProductApiServiceProvider extends ServiceProvider
                 'api_key' => config('schier-api.clients.territory.key'),
                 'api_base' => $this->getBaseRoute(config('schier-api.clients.territory.base')),
                 'api_version' => config('schier-api.clients.territory.version')
+            ]);
+        });
+
+        $this->app->singleton(GreaseApiClient::class, function () {
+            return new GreaseApiClient([
+                'api_key' => config('schier-api.clients.grease.key'),
+                'api_base' => $this->getBaseRoute(config('schier-api.clients.grease.base')),
+                'api_version' => config('schier-api.clients.grease.version')
+            ]);
+        });
+
+        $this->app->singleton(AverageUnitVolumeClient::class, function () {
+            return new AverageUnitVolumeClient([
+                'api_key' => config('schier-api.clients.average-unit-volume.key'),
+                'api_base' => $this->getBaseRoute(config('schier-api.clients.average-unit-volume.base')),
+                'api_version' => config('schier-api.clients.average-unit-volume.version')
             ]);
         });
 
