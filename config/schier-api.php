@@ -53,5 +53,17 @@ return [
             'base' => env('SCHIER_TERRITORY_API_BASE', env('SCHIER_API_BASE', 'https://api.schierproducts.com')),
             'version' => env('SCHIER_TERRITORY_API_VERSION', env('SCHIER_API_VERSION', '1')),
         ],
+
+        'grease' => [
+            'key' => env('SCHIER_GREASE_UTILITY_API_KEY', env('SCHIER_API_KEY', null)),
+            'base' => env('SCHIER_GREASE_UTILITY_API_BASE', env('SCHIER_API_BASE', 'https://api.schierproducts.com')),
+            'version' => env('SCHIER_GREASE_UTILITY_API_VERSION', env('SCHIER_API_VERSION', '1')),
+        ],
+
+        'average-unit-volume' => [
+            'key' => env('SCHIER_AVERAGE_UNIT_VOLUME_API_KEY', env('SCHIER_API_KEY', null)),
+            'base' => env('SCHIER_AVERAGE_UNIT_VOLUME_API_BASE', env('SCHIER_API_BASE', 'https://api.schierproducts.com')),
+            'version' => env('SCHIER_AVERAGE_UNIT_VOLUME_API_VERSION', env('SCHIER_API_VERSION', '1')),
+        ],
     ],
 ];
