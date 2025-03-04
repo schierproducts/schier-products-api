@@ -15,7 +15,7 @@ class RestaurantTypeService extends ApiService
      * @param $opts
      * @return Collection<RestaurantType>
      */
-    public function all($params = null, $opts = null)
+    public function all($params = null, $opts = null) : Collection
     {
         return $this->requestCollection('get', self::PATH, $params, $opts);
     }

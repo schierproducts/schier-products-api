@@ -4,6 +4,7 @@ namespace SchierProducts\SchierProductApi\ApiClients\GreaseApi\Client;
 
 use SchierProducts\SchierProductApi\Client\BaseSchierClient;
 use SchierProducts\SchierProductApi\Collection;
+use SchierProducts\SchierProductApi\Resources\InventoryItem;
 use SchierProducts\SchierProductApi\Service\ServiceFactory;
 
 class GreaseApiClient extends BaseSchierClient
