@@ -20,7 +20,7 @@
         "ext-curl": "*",
         "ext-json": "*",
         "ext-mbstring": "*",
-        "illuminate/http": "^8.19|^9.0|^10.0|^11.0",
+        "illuminate/http": "^9.0|^10.0|^11.0|^12.0",
         "guzzlehttp/guzzle": "^7.0"
     },
     "require-dev": {
