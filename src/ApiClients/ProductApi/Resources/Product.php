@@ -16,8 +16,11 @@ use SchierProducts\SchierProductApi\Operations;
  * @property string|null $short_description A short concise description of the product.
  * @property string|null $shipping_group The shipping table that this product is associated with in ShipperHQ
  * @property ProductImageLibrary $images A list of available images.
+ * @property FuturePrice $future_price If a price change is imminent, the price of the product after the change is approved
  * @property DimensionSet $base_dimensions The dimensions of the product
- * @property DimensionSet $shipping_dimensions The shipping dimensions of th product
+ * @property DimensionSet $shipping_dimensions The shipping dimensions of the product
+ * @property int|null $case_quantity If the product is available in a case quantity, the number of units that are in a case.
+ * @property DimensionSet|null $case_shipping_dimensions The case-quantity shipping dimensions of the product
  * @property int $manway_access_ports The number of "manway" access ports that require a cover
  * @property int[] $units_in_series The number of units in a series
  * @property InstallationDimensionSet $installation_dimensions The dimensions of the product for installation
