@@ -49,7 +49,7 @@ trait ManagesApiSettings
      */
     public static function getHttpClient() : \Illuminate\Http\Client\Factory
     {
-        return self::$httpClient ?? new \Illuminate\Http\Client\Factory;
+        return self::$httpClient ?? app(\Illuminate\Http\Client\Factory::class);
     }
 
     /**
